@@ -1,12 +1,12 @@
 import React from 'react'
-import Article from '../components/Article'
-import Sidebar from './Sidebar'
+import Content from '../components/Content'
+import Sidebar from '../components/Sidebar'
 
 function Main() {
   return (
     <div className="container mx-auto px-5 py-8 flex-1 overflow-y-auto overflow-hidden">
       <Sidebar />
-      <Article />
+      <Content />
     </div>
   )
 }

@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 
 function Article() {
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(true)
   const articleImg =
     'https://i.picsum.photos/id/485/536/354.jpg?hmac=pZOQxjCkUNUNbkfL1jqEoKmjQC45m3jN39RD3To638U'
 
@@ -13,8 +13,7 @@ function Article() {
     return () => clearTimeout(timer)
   }, [])
 
-  return (
-    <div className="content-holder overflow-hidden">
+  return (    
       <div className="article border border-gray-300 rounded-sm bg-white">
         {isLoading ? (
           <div className="animate-pulse">
@@ -43,8 +42,12 @@ function Article() {
                   alt=""
                 />
               </div>
-              <h3 className="text-sm capitalize pl-3 font-medium">Tina Bryant</h3>
-              <div className="dots absolute top-1/2 right-4 transform -translate-y-1/2"><MoreHorizIcon /></div>
+              <h3 className="text-sm capitalize pl-3 font-medium">
+                Tina Bryant
+              </h3>
+              <div className="dots absolute top-1/2 right-4 transform -translate-y-1/2">
+                <MoreHorizIcon />
+              </div>
             </div>
             <div
               className="img-holder h-60 w-full bg-cover bg-center"
@@ -53,7 +56,6 @@ function Article() {
           </div>
         )}
       </div>
-    </div>
   )
 }
 

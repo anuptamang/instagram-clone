@@ -6,7 +6,7 @@ import CachedIcon from '@material-ui/icons/Cached'
 
 function UserDropdown(props) {
   return (
-    <div className={`user-dropdown-holder w-64 absolute -right-3 top-full mt-4 ${!props.isActive && 'hidden' } `}>
+    <div className={`user-dropdown-holder w-64 absolute z-30 -right-3 top-full mt-4 ${!props.isActive && 'hidden' } `}>
       <div className="arrow w-6 h-6 sbg-white shadow transform -rotate-45 absolute -top-1 right-3 z-1"></div>
       <div className="arrow w-6 h-6 bg-white transform -rotate-45 absolute top-0 right-3 z-2"></div>
       <div className="user-dropdown list-none bg-white shadow rounded-md relative">

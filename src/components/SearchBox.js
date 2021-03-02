@@ -14,7 +14,7 @@ function SearchBox(props) {
       <input
         ref={wrapperRef}
         onClick={() => setSearchActive(true)}
-        className={`rounded border border-gray-300 bg-gray-100 px-10 text-sm w-full text-gray-500 h-8 placeholder-gray-500 focus:outline-none focus:shadow-gray-300 focus:border-transparent ${
+        className={`rounded border border-gray-300 bg-gray-100 px-10 text-sm w-full text-gray-500 h-8 placeholder-gray-500 focus:outline-none focus:shadow-gray-300 focus:ring-0 ${
           !isSearchActive && 'cursor-default text-center px-3'
         }`}
         type="text"

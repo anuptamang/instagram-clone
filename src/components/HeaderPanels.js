@@ -17,7 +17,7 @@ function HeaderPanels() {
         <HomeIcon />
       </li>
       <li>
-        <SendOutlinedIcon />
+        <SendOutlinedIcon className="transform -rotate-45 origin-top -ml-2" />
       </li>
       <li>
         <ExploreOutlinedIcon />
@@ -26,7 +26,11 @@ function HeaderPanels() {
         <FavoriteBorderOutlinedIcon />
       </li>
       <li>
-        <div ref={wrapperRef} className="user relative" onClick={()=>setDropdown(true)}>
+        <div
+          ref={wrapperRef}
+          className="user relative"
+          onClick={() => setDropdown(true)}
+        >
           <img
             className="rounded-full mt-1 cursor-pointer transition-opacity hover:opacity-70"
             src="https://randomuser.me/api/portraits/men/17.jpg"

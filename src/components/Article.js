@@ -14,7 +14,7 @@ function Article() {
   }, [])
 
   return (    
-      <div className="article border border-gray-300 rounded-sm bg-white">
+      <div className="article border border-gray-300 rounded- bg-white">
         {isLoading ? (
           <div className="animate-pulse">
             <div className="bg-gray-200 h-60 w-full"></div>

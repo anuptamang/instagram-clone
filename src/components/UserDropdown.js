@@ -10,7 +10,7 @@ function UserDropdown(props) {
       <div className="arrow w-6 h-6 sbg-white shadow transform -rotate-45 absolute -top-1 right-3 z-1"></div>
       <div className="arrow w-6 h-6 bg-white transform -rotate-45 absolute top-0 right-3 z-2"></div>
       <div className="user-dropdown list-none bg-white shadow rounded-md relative">
-        <div className="ul list-none px-4 text-sm">
+        <ul className="ul list-none px-4 text-sm">
           <li className="flex items-center py-2">
             <AccountCircleOutlinedIcon className="mr-2" /> Profile
           </li>
@@ -23,7 +23,7 @@ function UserDropdown(props) {
           <li className="flex items-center py-2">
             <CachedIcon className="mr-2" /> Switch Accounts
           </li>
-        </div>
+        </ul>
         <div className="logout text-sm px-4 py-2 border-t">
           log Out
         </div>

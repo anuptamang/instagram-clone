@@ -5,6 +5,7 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
 import SendOutlinedIcon from '@material-ui/icons/SendOutlined'
 import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined'
 import SentimentSatisfiedOutlinedIcon from '@material-ui/icons/SentimentSatisfiedOutlined'
+import ArticleSkeleton from '../skeletons/ArticleSkeleton'
 
 function Article() {
   const [isLoading, setLoading] = useState(true)
@@ -19,20 +20,9 @@ function Article() {
   }, [])
 
   return (
-    <div className="article border border-gray-300 rounded- bg-white">
+    <div className="article border border-gray-300 rounded bg-white mb-14">
       {isLoading ? (
-        <div className="animate-pulse">
-          <div className="bg-gray-200 h-60 w-full"></div>
-          <div className="p-4">
-            <div className="py-1 mb-3 bg-gray-200 rounded w-1/4">&nbsp;</div>
-            <div className="">
-              <div className="py-1 mb-3 bg-gray-200 rounded w-1/1.5">
-                &nbsp;
-              </div>
-              <div className="py-1 mb-3 bg-gray-200 rounded w-1/2">&nbsp;</div>
-            </div>
-          </div>
-        </div>
+        <ArticleSkeleton />
       ) : (
         <div className="article-holder">
           <div className="article-header relative flex items-center py-3 px-4">

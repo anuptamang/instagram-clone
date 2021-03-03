@@ -11,3 +11,6 @@
 - Spread
 - Template Literals
 - Ternary Operators
+- Random User API
+- Axios
+- React Material Skeleton Loader

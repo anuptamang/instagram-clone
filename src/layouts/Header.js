@@ -6,7 +6,7 @@ import Logo from '../components/Logo'
 function Header(props) {
   return (
     <header className="border-b bg-white">
-      <div className="lg:container mx-auto py-6 px-5 grid grid-cols-2 gap-4 md:grid-cols-3 content-center">
+      <div className="lg:container mx-auto py-3 px-5 grid grid-cols-2 gap-4 md:grid-cols-3 content-center">
         <Logo />
         <SearchBox />
         <HeaderPanels />

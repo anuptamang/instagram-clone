@@ -1,5 +1,5 @@
 # Instagram Clone App
-## Demo: 
+## Demo: https://instagram-clone-725f8.web.app
 
 ## Technologies Used:
 - React

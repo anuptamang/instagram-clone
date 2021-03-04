@@ -1,16 +1,14 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import imgLogo from 'assets/images/logo.png'
 
 function Logo() {
   return (
-    <NavLink to="/">
-      <div className="logo">
-        <img
-          src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
-          alt=""
-        />
-      </div>
-    </NavLink>
+    <div className="logo mt-1">
+      <NavLink to="/">
+        <img src={imgLogo} width={103} alt="" />
+      </NavLink>
+    </div>
   )
 }
 

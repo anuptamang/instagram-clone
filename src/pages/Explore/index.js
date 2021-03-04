@@ -1,9 +1,10 @@
 import React from 'react'
+import UsersSlider from 'components/UsersSlider';
 
 function Explore() {
   return (
-    <div>
-      explore page
+    <div className="container py-14 px-5">
+      <UsersSlider />
     </div>
   )
 }

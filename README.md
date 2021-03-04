@@ -4,13 +4,10 @@
 ## Technologies Used:
 - React
 - Hooks
+- React Router
 - Firebase DB, Auth, Hosting
 - Tailwind CSS
 - Material Icons
-- Destructure
-- Spread
-- Template Literals
-- Ternary Operators
 - Random User API
 - Axios
 - React Material Skeleton Loader

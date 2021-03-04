@@ -1,7 +1,7 @@
 import React from 'react'
-import SearchBox from '../components/SearchBox';
-import HeaderPanels from '../components/HeaderPanels';
-import Logo from '../components/Logo'
+import SearchBox from 'components/SearchBox';
+import HeaderPanels from 'components/Header/HeaderPanels';
+import Logo from 'components/_common/Logo'
 
 function Header(props) {
   return (

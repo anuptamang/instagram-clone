@@ -5,7 +5,7 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
 import SendOutlinedIcon from '@material-ui/icons/SendOutlined'
 import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined'
 import SentimentSatisfiedOutlinedIcon from '@material-ui/icons/SentimentSatisfiedOutlined'
-import ArticleSkeleton from '../skeletons/ArticleSkeleton'
+import ArticleSkeleton from 'components/skeletons/ArticleSkeleton'
 
 function Article() {
   const [isLoading, setLoading] = useState(true)

@@ -1,6 +1,6 @@
 import React from 'react'
-import Article from './Article'
-import UserSlider from './UserSlider'
+import Article from 'components/Article'
+import UserSlider from 'components/UsersSlider'
 
 function Content() {
   return (

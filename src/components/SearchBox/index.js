@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import SearchIcon from '@material-ui/icons/Search'
 import CloseIcon from '@material-ui/icons/Close'
-import hideOnClickOutside from '../utilities/ClickOutside'
+import hideOnClickOutside from 'utils/ClickOutside'
 
 function SearchBox(props) {
   const [isSearchActive, setSearchActive] = useState(false)

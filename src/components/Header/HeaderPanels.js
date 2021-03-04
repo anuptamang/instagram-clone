@@ -3,8 +3,9 @@ import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutline
 import ExploreOutlinedIcon from '@material-ui/icons/ExploreOutlined'
 import SendOutlinedIcon from '@material-ui/icons/SendOutlined'
 import HomeIcon from '@material-ui/icons/Home'
-import UserDropdown from './UserDropdown'
-import hideOnClickOutside from '../utilities/ClickOutside'
+import Dropdown from '../_common/Dropdown'
+import hideOnClickOutside from '../../utils/ClickOutside'
+import {NavLink} from 'react-router-dom'
 
 function HeaderPanels() {
   const [isActive, setDropdown] = useState(false)
@@ -14,13 +15,19 @@ function HeaderPanels() {
   return (
     <ul className="header-list list-none grid grid-flow-col justify-end gap-4">
       <li>
-        <HomeIcon />
+        <NavLink to="/">
+          <HomeIcon />
+        </NavLink>
       </li>
       <li>
-        <SendOutlinedIcon className="transform -rotate-45 origin-top -ml-2" />
+        <NavLink to="/messages">
+          <SendOutlinedIcon className="transform -rotate-45 origin-top -ml-2" />
+        </NavLink>
       </li>
       <li>
-        <ExploreOutlinedIcon />
+        <NavLink to="/explore">
+          <ExploreOutlinedIcon />
+        </NavLink>
       </li>
       <li>
         <FavoriteBorderOutlinedIcon />
@@ -38,7 +45,7 @@ function HeaderPanels() {
             height="22"
             alt=""
           />
-          <UserDropdown isActive={isActive} />
+          <Dropdown isActive={isActive} />
         </div>
       </li>
     </ul>

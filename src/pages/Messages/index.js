@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Footer() {
+function Messages() {
   return (
     <div>
-      
+      messages page
     </div>
   )
 }
 
-export default Footer
+export default Messages

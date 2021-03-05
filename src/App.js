@@ -12,7 +12,7 @@ function App() {
   return (
     <Router>
       <div
-        className={`App overflow-hidden relative flex flex-col h-screen ${
+        className={`App overflow-hidden relative pt-16 ${
           !user ? 'bg-gradient-instagram' : 'bg-gray-100'
         }`}
       >

@@ -7,6 +7,8 @@ function Content() {
     <div className="content-holder overflow-hidden">
       <UserSlider />
       <Article />
+      <Article />
+      <Article />
     </div>
   )
 }

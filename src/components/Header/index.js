@@ -28,7 +28,7 @@ function Header({location, handleLogout}) {
    })
 
   return (
-    <header className="border-b bg-white">
+    <header className="border-b bg-white fixed top-0 left-0 right-0 z-50">
       <div className="lg:container mx-auto py-3 px-5 grid grid-cols-2 gap-4 md:grid-cols-3 content-center">
         <Logo />
         <SearchBox />

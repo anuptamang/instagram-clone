@@ -25,14 +25,20 @@ function Header({location}) {
         <ul className="header-list list-none grid grid-flow-col justify-end gap-4">
           <li>
             <ul className="list-none flex space-x-3">
+              {/* <NavItems setAddActive = {setAddActive} /> */}
+
               {navLinks.map((item, index) => {
-                return index < 3 ? (
+                return index < navLinks.length ? (
                   <li key={item.key}>
                     <NavLink
                       to={item.path}
                       className={setAddActive(item.altPath)}
                     >
-                      {item.title}
+                      {pathname === item.altPath ? (
+                        item.activeTitle
+                      ) : (
+                        item.title
+                      )}
                     </NavLink>
                   </li>
                 ) : (

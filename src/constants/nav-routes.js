@@ -33,6 +33,38 @@ export const navLinks = [
     altPath: 'explore',
     disable: false,
   },
+  {
+    key: 3,
+    path: '/explore',
+    title: <ExploreOutlinedIcon />,
+    activeTitle: <ExploreIcon />,
+    altPath: 'explore',
+    disable: false,
+  },
+  {
+    key: 4,
+    path: '/explore',
+    title: <ExploreOutlinedIcon />,
+    activeTitle: <ExploreIcon />,
+    altPath: 'explore',
+    disable: false,
+  },
+  {
+    key: 5,
+    path: '/explore',
+    title: <ExploreOutlinedIcon />,
+    activeTitle: <ExploreIcon />,
+    altPath: 'explore',
+    disable: false,
+  },
+  {
+    key: 6,
+    path: '/explore',
+    title: <ExploreOutlinedIcon />,
+    activeTitle: <ExploreIcon />,
+    altPath: 'explore',
+    disable: false,
+  },
 ]
 
 export const pageRoutes = [

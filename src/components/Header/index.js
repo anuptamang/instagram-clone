@@ -7,8 +7,9 @@ import hideOnClickOutside from 'utils/ClickOutside'
 import { NavLink, withRouter } from 'react-router-dom'
 import { navLinks } from 'constants/nav-routes'
 import './Header.scss'
+import UserDropdown from 'components/Header/UserDropdown'
 
-function Header({location}) {
+function Header({location, handleLogout}) {
    const [isActive, setDropdown] = useState(false)
    const wrapperRef = useRef(null)
    hideOnClickOutside(wrapperRef, setDropdown)
@@ -28,17 +29,15 @@ function Header({location}) {
               {/* <NavItems setAddActive = {setAddActive} /> */}
 
               {navLinks.map((item, index) => {
-                return index < navLinks.length ? (
+                return index < 3 ? (
                   <li key={item.key}>
                     <NavLink
                       to={item.path}
                       className={setAddActive(item.altPath)}
                     >
-                      {pathname === item.altPath ? (
-                        item.activeTitle
-                      ) : (
-                        item.title
-                      )}
+                      {pathname === item.altPath
+                        ? item.activeTitle
+                        : item.title}
                     </NavLink>
                   </li>
                 ) : (
@@ -63,7 +62,9 @@ function Header({location}) {
                 height="22"
                 alt=""
               />
-              <Dropdown isActive={isActive} />
+              <Dropdown isActive={isActive}>
+                <UserDropdown handleLogout={handleLogout} />
+              </Dropdown>
             </div>
           </li>
         </ul>

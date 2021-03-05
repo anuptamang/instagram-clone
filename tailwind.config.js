@@ -28,6 +28,10 @@ module.exports = {
         xl: '960px',
       },
     },
+    boxShadow: {
+      DEFAULT:
+        '0 0 5px 1px rgba(0, 0, 0, 0.1)',
+    },
     extend: {},
   },
   variants: {

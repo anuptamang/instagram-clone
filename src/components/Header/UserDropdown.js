@@ -1,29 +1,41 @@
 import React from 'react'
-import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
-import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined'
-import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined'
+import { NavLink } from 'react-router-dom'
+import { userDropdownLinks } from 'constants/nav-routes'
 import CachedIcon from '@material-ui/icons/Cached'
 
 function UserDropdown({handleLogout}) {
   const logout = () => {
     localStorage.removeItem('user')
     handleLogout('')
-  }
-  
+  }  
+
   return (
     <>
-      <ul className="ul list-none px-4 text-sm">
-        <li className="flex items-center py-2">
-          <AccountCircleOutlinedIcon className="mr-2" /> Profile
+      <ul className="list-none text-sm capitalize">
+        <li>
+          <ul className="list-none">
+            {userDropdownLinks.map((item, index) => {
+              return index < userDropdownLinks.length ? (
+                <li key={item.key}>
+                  <NavLink
+                    className="block py-2 px-4 cursor-pointer hover:bg-gray-100 relative z-40"
+                    to={item.path}
+                  >
+                    <span className="mr-2">{item.icon}</span>
+                    {item.title}
+                  </NavLink>
+                </li>
+              ) : (
+                ''
+              )
+            })}
+          </ul>
         </li>
-        <li className="flex items-center py-2">
-          <BookmarkBorderOutlinedIcon className="mr-2" /> Saved
-        </li>
-        <li className="flex items-center py-2">
-          <SettingsOutlinedIcon className="mr-2" /> Settings
-        </li>
-        <li className="flex items-center py-2">
-          <CachedIcon className="mr-2" /> Switch Accounts
+        <li className="py-2 px-4 cursor-pointer hover:bg-gray-100">
+          <span className="mr-2">
+            <CachedIcon />
+          </span>{' '}
+          Switch Accounts
         </li>
       </ul>
       <div

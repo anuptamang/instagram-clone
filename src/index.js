@@ -4,6 +4,11 @@ import './index.css';
 import App from './App';
 
 import reportWebVitals from './reportWebVitals';
+// import { progressBarFetch, setOriginalFetch } from 'react-fetch-progressbar'
+// setOriginalFetch(window.fetch)
+// window.fetch = progressBarFetch
+
+// console.log(window.fetch)
 
 ReactDOM.render(
   <React.StrictMode>

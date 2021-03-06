@@ -14,6 +14,7 @@ import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined'
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
 import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined'
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined'
+import Stories from 'pages/Stories'
 
 
 export const navLinks = [
@@ -106,5 +107,11 @@ export const pageRoutes = [
     path: '/settings',
     exact: true,
     component: Settings,
+  },
+  {
+    key: 6,
+    path: '/stories',
+    exact: true,
+    component: Stories,
   },
 ]

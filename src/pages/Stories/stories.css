@@ -1,0 +1,8 @@
+.react-multi-carousel-item {
+  width: 360px !important;
+}
+
+.stories-holder {
+  height: calc(100vh - 56px);
+  background: #1A1A1A;
+}

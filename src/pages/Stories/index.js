@@ -29,6 +29,21 @@ const stories = [
         profileImage: 'https://picsum.photos/100/100',
       },
     },
+    {
+      url:
+        'https://i.picsum.photos/id/868/536/354.jpg?hmac=ZcbB7ABIgl6LS5B1wxkzJ_dxJFgNmCsODUTfxM5GdRk',
+      duration: 5000,
+      header: {
+        heading: 'Anup Tamang',
+        subheading: 'Posted 30m ago',
+        profileImage: 'https://picsum.photos/100/100',
+      },
+    },
+    {
+      url: 'videos/avengers.mp4',
+      duration: 5000, // ignored
+      type: 'video',
+    },
   ],
   [
     {
@@ -49,18 +64,6 @@ const stories = [
       duration: 5000,
       header: {
         heading: 'Jane Doe',
-        subheading: 'Posted 30m ago',
-        profileImage: 'https://picsum.photos/100/100',
-      },
-    },
-  ],
-  [
-    {
-      url:
-        'https://i.picsum.photos/id/430/536/354.jpg?hmac=uxrNCXgJuycp2JMZ9jpZb5ThTsZIplRTSPuc4ybMyws',
-      duration: 5000,
-      header: {
-        heading: 'Anup Tamang',
         subheading: 'Posted 30m ago',
         profileImage: 'https://picsum.photos/100/100',
       },
@@ -139,7 +142,7 @@ function StoriesPage() {
   
   
   return (
-    <div className="py-12 px-4 flex space-x-20 stories-holder">
+    <div className="py-12 px-4 flex space-x-20 stories-holder items-center">
       {stories.map((story) => (
         <Stories
           key={Math.floor(Math.random() * Date.now())}

@@ -1,3 +1,4 @@
+import { Pause } from '@material-ui/icons'
 import React, { useEffect, useRef, useState } from 'react'
 import Stories from 'react-insta-stories'
 import { WithSeeMore, WithHeader } from 'react-insta-stories'
@@ -156,12 +157,12 @@ const stories = [
 const StoriesData = () => {
   return (
     <>
-        {stories.map((story) => (
-          <Stories
-            key={Math.floor(Math.random() * Date.now())}
-            stories={story}
-          />
-        ))}
+      {stories.map((story) => (
+        <Stories
+          key={Math.floor(Math.random() * Date.now())}
+          stories={story}
+        />
+      ))}
     </>
   )
 }

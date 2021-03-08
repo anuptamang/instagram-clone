@@ -1,0 +1,173 @@
+{
+  "users": [
+    {
+      "userId": "user-01",
+      "name": "Anup Tamang",
+      "email": "abc@gmail.com",
+      "avatar": "https://randomuser.me/api/portraits/men/17.jpg",
+      "username": "anuptamang",
+      "isVerified": true,
+      "followers": ["user-02", "user-03"],
+      "following": ["user-02", "user-03"],
+      "followedBy": ["user-02", "user-03"],
+      "savedPost": ["user-01-post-01"]
+    },
+    {
+      "userId": "user-02",
+      "name": "Jon Doe",
+      "email": "bcd@gmail.com",
+      "avatar": "https://randomuser.me/api/portraits/men/36.jpg",
+      "username": "jondoe12345",
+      "isVerified": ["user-01", "user-03"],
+      "followers": ["user-01", "user-03"],
+      "following": [],
+      "followedBy": ["user-01", "user-03"],
+      "savedPost": ["user-02-post-01"]
+    },
+    {
+      "userId": "user-03",
+      "name": "Rosa Dean",
+      "email": "efg@gmail.com",
+      "avatar": "https://randomuser.me/api/portraits/women/88.jpg",
+      "username": "rosadean2580",
+      "isVerified": false,
+      "followers": ["user-01", "user-02"],
+      "following": ["user-02"],
+      "followedBy": ["user-01", "user-02"],
+      "savedPost": ["user-03-post-01"]
+    }
+  ],
+  "posts": [
+    {
+      "postId": "user-01-post-01",
+      "userId": "user-01",
+      "posted": 1615103534,
+      "location": "Kathmandu, Nepal",
+      "postImage": [
+        "https://lp-cms-production.imgix.net/2019-06/813869da84003e9ab623499ae2465723-bodhnath-stupa.jpg",
+        "https://cdn.kimkim.com/files/a/content_articles/featured_photos/656bb11870d1786be69ae178e45d0723244384c6/big-3985131bf28128fdc4c2ffcd12779cb0.jpg"
+      ],
+      "postVideo": "",
+      "postCaption": "For a perfect day in Kathmandu, consider staying in Old Patan instead."
+    },
+    {
+      "postId": "user-01-post-02",
+      "userId": "user-01",
+      "posted": 1615103200,
+      "location": "Lalitpur, Nepal",
+      "postImage": [
+        "https://cdn.kimkim.com/files/a/content_articles/featured_photos/656bb11870d1786be69ae178e45d0723244384c6/big-3985131bf28128fdc4c2ffcd12779cb0.jpg"
+      ],
+      "postVideo": "videos/video1.mp4",
+      "postCaption": "For a perfect day in Kathmandu, consider staying in Old Patan instead."
+    },
+    {
+      "postId": "user-02-post-01",
+      "userId": "user-02",
+      "posted": 1615189574,
+      "location": "Zurich, Switzerland",
+      "postImage": [
+        "https://upload.wikimedia.org/wikipedia/commons/7/76/Z%C3%BCrich.jpg"
+      ],
+      "postVideo": "",
+      "postCaption": "Famouse for: #Lake Zurich (Zurichsee) Lake Zurich (Zurichsee)"
+    },
+    {
+      "postId": "user-02-post-02",
+      "userId": "user-02",
+      "posted": 1615189111,
+      "location": "Lake Zurich, Switzerland",
+      "postImage": [
+        "https://cp-website-images.s3.eu-central-1.amazonaws.com/wp-content/uploads/2020/01/56618949_s.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/7/76/Z%C3%BCrich.jpg"
+      ],
+      "postVideo": "",
+      "postCaption": "Famouse for: #Lake Zurich (Zurichsee) Lake Zurich (Zurichsee)"
+    },
+    {
+      "postId": "user-03-post-01",
+      "userId": "user-03",
+      "posted": 1615193174,
+      "location": "Washington, DC",
+      "postImage": [
+        "https://schiff.house.gov/imo/media/image/OverlookingDC1.jpg"
+      ],
+      "postVideo": "",
+      "postCaption": "Safely visit DC with mask and hand sanitizer"
+    },
+    {
+      "postId": "user-03-post-02",
+      "userId": "user-03",
+      "posted": 1615192222,
+      "location": "Smithsonian museums, Washington, DC",
+      "postImage": [
+        "https://storyv.com/wp-content/uploads/2020/11/6c30c589a823bf4fccbf239ee16de2d6_content_img_719392389280-1.jpg",
+        "https://schiff.house.gov/imo/media/image/OverlookingDC1.jpg"
+      ],
+      "postVideo": "",
+      "postCaption": "Safely visit DC with mask and hand sanitizer"
+    }
+  ],
+  "comments": [
+    {
+      "userId": "user-02",
+      "postId": "user-01-post-01",
+      "message": "the traffic in Kathmandu can slow things down enormously."
+    },
+    {
+      "userId": "user-03",
+      "postId": "user-01-post-01",
+      "message": "For men and women alike, modest dress is a practical choice for Kathmandu dust and heat."
+    },
+    {
+      "userId": "user-01",
+      "postId": "user-02-post-01",
+      "message": "Hop on a boat at Limmatschifffahrt."
+    },
+    {
+      "userId": "user-03",
+      "postId": "user-02-post-01",
+      "message": "Explore Zurich West."
+    },
+    {
+      "userId": "user-01",
+      "postId": "user-03-post-01",
+      "message": "D.C. is an expensive place to visit."
+    },
+    {
+      "userId": "user-02",
+      "postId": "user-03-post-01",
+      "message": "All the Smithsonian museums are free—including the National Zoo"
+    },
+    {
+      "userId": "user-02",
+      "postId": "user-01-post-02",
+      "message": "the traffic in Kathmandu can slow things down enormously."
+    },
+    {
+      "userId": "user-03",
+      "postId": "user-01-post-02",
+      "message": "For men and women alike, modest dress is a practical choice for Kathmandu dust and heat."
+    },
+    {
+      "userId": "user-01",
+      "postId": "user-02-post-02",
+      "message": "Hop on a boat at Limmatschifffahrt."
+    },
+    {
+      "userId": "user-03",
+      "postId": "user-02-post-02",
+      "message": "Explore Zurich West."
+    },
+    {
+      "userId": "user-01",
+      "postId": "user-03-post-02",
+      "message": "D.C. is an expensive place to visit."
+    },
+    {
+      "userId": "user-02",
+      "postId": "user-03-post-02",
+      "message": "All the Smithsonian museums are free—including the National Zoo"
+    }
+  ]
+}

@@ -1,7 +1,5 @@
-import { Pause } from '@material-ui/icons'
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import Stories from 'react-insta-stories'
-import { WithSeeMore, WithHeader } from 'react-insta-stories'
 
 function SeeMore({close}) {
   return (

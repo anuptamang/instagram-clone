@@ -12,31 +12,32 @@ function UserSlider() {
   const getUsers = () => {
     setLoading(true)
     return (
-      axios.get(`https://randomuser.me/api/?results=25&seed=foobar`)
+      axios.get(`db.json`)
     )
   }
 
   useEffect(()=> {
-    getUsers().then(data=> {
-      setUsers(data.data.results)
+    getUsers().then(res=> {
+      setUsers(res.data.users)
+      console.log(res.data.users)
       setLoading(false)
     })
   }, [])
 
-  const slideItems = users.map((user) => (
+  const slideItems = users && users.map((user) => (
     <div className="slide w-20 px-2 text-center">
       <NavLink to="/stories">
         <div className="img-avatar inline-block rounded-full overflow-hidden p-0.5 border-2 border-pink-700">
           <img
             className="rounded-full block"
-            src={user.picture.medium}
+            src={user.avatar}
             width="60"
             height="60"
-            alt={`${user.name.first} ${user.name.last}`}
+            alt={`${user.name}`}
           />
         </div>
         <div className="name block overflow-hidden whitespace-nowrap overflow-ellipsis text-xs">
-          {`${user.name.first} ${user.name.last}`}
+          {`${user.name}`}
         </div>
       </NavLink>
     </div>

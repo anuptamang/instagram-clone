@@ -6,7 +6,7 @@ export const useLocationChange = (action) => {
 
   useEffect(() => {
     action(location)
-  }, [location])
+  }, [location, action])
 }
 
 export const prepareQueryParams = (reqData) => (

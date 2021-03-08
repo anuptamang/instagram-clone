@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import { useEffect } from 'react'
 
 function ClickOutside(ref, fn) {
   useEffect(() => {
@@ -18,7 +18,7 @@ function ClickOutside(ref, fn) {
       // Unbind the event listener on clean up
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [ref])
+  }, [ref, fn])
 }
 
 export default ClickOutside

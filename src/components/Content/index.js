@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
 import Article from 'components/Article'
 import UserSlider from 'components/UsersSlider'
+import React, { useState } from 'react'
 
 function Content() {
-   const [isVideo, setVideo] = useState(true)
+   const [isVideo] = useState(true)
    
   return (
     <>

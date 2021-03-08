@@ -1,19 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react'
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
-import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
-import SendOutlinedIcon from '@material-ui/icons/SendOutlined'
 import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined'
-import SentimentSatisfiedOutlinedIcon from '@material-ui/icons/SentimentSatisfiedOutlined'
-import ArticleSkeleton from 'components/skeletons/ArticleSkeleton'
+import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded'
-import './article.scss'
-import ReactPlayer from 'react-player'
+import SendOutlinedIcon from '@material-ui/icons/SendOutlined'
+import SentimentSatisfiedOutlinedIcon from '@material-ui/icons/SentimentSatisfiedOutlined'
 import animVideoCover from 'assets/images/anim-screen.png'
-import { usePageVisibility } from 'react-page-visibility'
-import VisibilitySensor from 'react-visibility-sensor'
-import { ProfilePopup } from 'components/User/Profile/ProfilePopup'
+import ArticleSkeleton from 'components/skeletons/ArticleSkeleton'
 import ArticleActivityPopup from 'components/User/Profile/ArticleActivityPopup'
+import { ProfilePopup } from 'components/User/Profile/ProfilePopup'
+import React, { useEffect, useState } from 'react'
+import { usePageVisibility } from 'react-page-visibility'
+import ReactPlayer from 'react-player'
+import VisibilitySensor from 'react-visibility-sensor'
+import AliceCarousel from 'react-alice-carousel'
+import 'assets/styles/slider.css'
+import './article.scss'
 
 function Article({isVideo}) {
   const [isLoading, setLoading] = useState(true) 
@@ -53,6 +55,21 @@ function Article({isVideo}) {
       setPopupActive(false)      
     }, 500);
   }
+
+  const articleImages = [
+    <div
+      className="img-holder h-96 w-full bg-cover bg-center"
+      style={{
+        backgroundImage: `url(https://pbs.twimg.com/media/Eq0oISXUwAArLnp.jpg)`,
+      }}
+    ></div>,
+    <div
+      className="img-holder h-96 w-full bg-cover bg-center"
+      style={{
+        backgroundImage: `url(https://pbs.twimg.com/media/Eq0oISXUwAArLnp.jpg)`,
+      }}
+    ></div>,
+  ]
 
   return (
     <div className="article border border-gray-300 rounded bg-white mb-14">
@@ -199,12 +216,12 @@ function Article({isVideo}) {
                   <MoreHorizIcon />
                 </div>
               </div>
-              <div
-                className="img-holder h-96 w-full bg-cover bg-center"
-                style={{
-                  backgroundImage: `url(https://pbs.twimg.com/media/Eq0oISXUwAArLnp.jpg)`,
-                }}
-              ></div>
+              <>
+                <AliceCarousel
+                  disableDotsControls
+                  items={articleImages}
+                />                
+              </>
               <div className="messages-panel p-3">
                 <div className="top-panel flex justify-between">
                   <ul className="list-none flex items-center -ml-2">

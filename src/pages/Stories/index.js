@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
+import React from 'react'
 import Stories from 'react-insta-stories'
 import './stories.scss'
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 
 function SeeMore({ close }) {
   return (
     <>
-      <div className="text-white py-20 p-8 text-center block absolute bottom-0 left-0 w-full font-light italic text-2xl text-yellow-200">
+      <div className="py-20 p-8 text-center block absolute bottom-0 left-0 w-full font-light italic text-2xl text-yellow-200">
         Sometimes two people have to fall apart to realize how much they need to
         fall back together.
       </div>

@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import { Switch, Route} from 'react-router-dom';
-import ScrollToTop from 'react-router-scroll-top';
 import { pageRoutes } from 'constants/nav-routes';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import ScrollToTop from 'react-router-scroll-top';
 
 const Main = () => {
   

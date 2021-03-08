@@ -12,11 +12,17 @@ import ReactPlayer from 'react-player'
 import animVideoCover from 'assets/images/anim-screen.png'
 import { usePageVisibility } from 'react-page-visibility'
 import VisibilitySensor from 'react-visibility-sensor'
+import { ProfilePopup } from 'components/User/Profile/ProfilePopup'
+import ArticleActivityPopup from 'components/User/Profile/ArticleActivityPopup'
 
 function Article({isVideo}) {
   const [isLoading, setLoading] = useState(true) 
   const [isPlaying, setPlaying] = useState(false) 
   const [isPlayingFirst, setPlayingFirst] = useState(false) 
+  const [isPopupActive, setPopupActive] = useState(false)
+  const [delayHandler, setDelayHandler] = useState(null)
+  const [isRodalVisible, setIsRodalVisible] = useState(false)
+
   const isPageVisible = usePageVisibility()
 
   useEffect(() => {
@@ -35,6 +41,19 @@ function Article({isVideo}) {
     setPlaying(false)
   }
 
+  const handlePopupOpen = () => {
+    setDelayHandler(setTimeout(() => {
+      setPopupActive(true)
+    }, 500))
+  }
+
+  const handlePopupClose = () => {
+    clearTimeout(delayHandler)
+    setTimeout(() => {
+      setPopupActive(false)      
+    }, 500);
+  }
+
   return (
     <div className="article border border-gray-300 rounded bg-white mb-14">
       {isLoading ? (
@@ -44,19 +63,27 @@ function Article({isVideo}) {
           {isVideo ? (
             <div className="article-holder">
               <div className="article-header relative flex items-center py-3 px-4">
-                <div className="img-avatar rounded-full overflow-hidden p-0.5 border-2 border-pink-700">
+                <div
+                  onMouseEnter={handlePopupOpen}
+                  onMouseLeave={handlePopupClose}
+                  className="img-avatar rounded-full p-0.5 border-2 border-pink-700 relative"
+                >
                   <img
-                    className="rounded-full block"
+                    className="rounded-full block cursor-pointer"
                     src="https://randomuser.me/api/portraits/women/2.jpg"
                     width="30"
                     height="30"
                     alt=""
                   />
+                  {isPopupActive && <ProfilePopup />}
                 </div>
                 <h3 className="text-sm capitalize pl-3 font-medium">
                   Tina Bryant
                 </h3>
-                <div className="dots absolute top-1/2 right-4 transform -translate-y-1/2">
+                <div
+                  onClick={() => setIsRodalVisible(true)}
+                  className="dots absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer"
+                >
                   <MoreHorizIcon />
                 </div>
               </div>
@@ -140,23 +167,35 @@ function Article({isVideo}) {
                   Post
                 </div>
               </div>
+              <ArticleActivityPopup
+                isVisible={isRodalVisible}
+                setIsVisible={setIsRodalVisible}
+              />
             </div>
           ) : (
             <div className="article-holder">
               <div className="article-header relative flex items-center py-3 px-4">
-                <div className="img-avatar rounded-full overflow-hidden p-0.5 border-2 border-pink-700">
+                <div
+                  onMouseEnter={handlePopupOpen}
+                  onMouseLeave={handlePopupClose}
+                  className="img-avatar rounded-full p-0.5 border-2 border-pink-700 relative"
+                >
                   <img
-                    className="rounded-full block"
+                    className="rounded-full block cursor-pointer"
                     src="https://randomuser.me/api/portraits/women/2.jpg"
                     width="30"
                     height="30"
                     alt=""
                   />
+                  {isPopupActive && <ProfilePopup />}
                 </div>
                 <h3 className="text-sm capitalize pl-3 font-medium">
                   Tina Bryant
                 </h3>
-                <div className="dots absolute top-1/2 right-4 transform -translate-y-1/2">
+                <div
+                  onClick={() => setIsRodalVisible(true)}
+                  className="dots absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer"
+                >
                   <MoreHorizIcon />
                 </div>
               </div>
@@ -213,6 +252,10 @@ function Article({isVideo}) {
                   Post
                 </div>
               </div>
+              <ArticleActivityPopup
+                isVisible={isRodalVisible}
+                setIsVisible={setIsRodalVisible}
+              />
             </div>
           )}
         </>

@@ -4,7 +4,7 @@ import Header from 'components/Header'
 import Main from 'router'
 import {BrowserRouter as Router} from 'react-router-dom'
 import Login from 'components/User/Login'
-import './App.css'
+import './App.scss'
 
 function App() { 
   const [user, setUser] = useState(localStorage.getItem('user'))

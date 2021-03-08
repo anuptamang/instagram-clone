@@ -4,9 +4,13 @@ import Sidebar from 'components/Sidebar'
 
 function Home() {
   return (
-    <div className="container mx-auto px-5 py-8 flex-1 overflow-y-auto overflow-hidden">
-      <Sidebar />
-      <Content />
+    <div className="container mx-auto px-5 py-8 lg:flex">
+      <div className="content">
+        <Content />
+      </div>
+      <div className="sidebar hidden lg:block lg:pl-4">
+        <Sidebar />
+      </div>
     </div>
   )
 }

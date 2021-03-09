@@ -4,9 +4,7 @@ import React from 'react'
 function Sidebar() {
   return (
     <>
-      <Article />
-      <Article />
-      <Article />
+      This is Sidebar...
     </>
   )
 }

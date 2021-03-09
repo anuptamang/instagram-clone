@@ -110,7 +110,7 @@ export const pageRoutes = [
   },
   {
     key: 6,
-    path: '/stories',
+    path: '/stories/:userId',
     exact: true,
     component: Stories,
   },

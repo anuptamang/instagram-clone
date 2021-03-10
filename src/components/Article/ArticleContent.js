@@ -11,11 +11,11 @@ import { ProfilePopup } from 'components/User/Profile/ProfilePopup'
 import React from 'react'
 import AliceCarousel from 'react-alice-carousel'
 import ReactPlayer from 'react-player'
+import { NavLink } from 'react-router-dom'
 import VisibilitySensor from 'react-visibility-sensor'
 
 const ArticleContent = ({
   article,
-  loading,
   isPlaying,
   isPlayingFirst,
   isPopupActive,
@@ -28,6 +28,10 @@ const ArticleContent = ({
   setIsRodalVisible,
   hasVideo
 }) => {
+  const date = new Date()
+  const now = Math.floor(date.getTime() / 1000)
+  let days, hrs
+
   return (
     <div className="article-holder">
       <div className="article-header relative flex items-center py-3 px-4">
@@ -43,10 +47,15 @@ const ArticleContent = ({
             height="30"
             alt=""
           />
-          {isPopupActive && <ProfilePopup />}
+          {isPopupActive && <ProfilePopup user={article.author[0]} />}
         </div>
         <h3 className="text-sm capitalize pl-3 font-medium">
-          {article.author[0].username}
+          <NavLink
+            className="hover:underline"
+            to={`/${article.author[0].username}`}
+          >
+            {article.author[0].username}
+          </NavLink>
         </h3>
         <div
           onClick={() => setIsRodalVisible(true)}
@@ -56,9 +65,8 @@ const ArticleContent = ({
         </div>
       </div>
       <>
-        {
-          hasVideo ? 
-            <div className="video-holder overflow-hidden relative h-96 w-full">
+        {hasVideo ? (
+          <div className="video-holder overflow-hidden relative h-96 w-full">
             {!isPlayingFirst && (
               <div
                 className="img-holder bg-cover bg-center absolute top-0 left-0 w-full h-full z-20"
@@ -89,7 +97,7 @@ const ArticleContent = ({
               )}
             </VisibilitySensor>
           </div>
-          :
+        ) : (
           <AliceCarousel
             disableDotsControls
             items={
@@ -104,7 +112,7 @@ const ArticleContent = ({
               ))
             }
           />
-          }
+        )}
       </>
       <div className="messages-panel p-3">
         <div className="top-panel flex justify-between">
@@ -123,19 +131,26 @@ const ArticleContent = ({
             <BookmarkBorderOutlinedIcon className="fill-current text-gray-700" />
           </div>
         </div>
-        <div className="likes-count text-sm pt-2">122 likes</div>
-        <div className="comments-holder pt-2">
-          <div className="comments-holder pt-2">
-            {article.comments.map((comment) => (
-              <div className="comment text-sm py-1">
-                <strong>{comment.user[0].username}</strong> &nbsp;
-                {comment.message}
-              </div>
-            ))}
-          </div>
+        <div className="likes-count text-sm pt-2">
+          {article.post.postLikes} likes
+        </div>
+        <div className="comment text-sm py-1">
+          <strong>{article.author[0].username}</strong> &nbsp;
+          {article.post.postCaption}
+        </div>
+        <div className="comments-holder">
+          {article.comments.map((comment) => (
+            <div className="comment text-sm py-1">
+              <strong>{comment.user[0].username}</strong> &nbsp;
+              {comment.message}
+            </div>
+          ))}
         </div>
         <div className="posted-on text-xs text-gray-400 uppercase pt-2">
-          7 hours ago
+          {
+            ((hrs = Math.floor((now - article.post.posted) / 3600)),
+            hrs > 24 ? `${Math.floor(hrs / 24)} days ago` : `${hrs} hours ago`)
+          }
         </div>
       </div>
       <div className="input-panel py-2 pr-12 pl-9 border-t border-gray-300 relative">

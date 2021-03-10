@@ -4,12 +4,12 @@
       "name": "Anup Tamang",
       "userId": 1,
       "email": "abc@gmail.com",
-      "avatar": "https://randomuser.me/api/portraits/men/17.jpg",
+      "avatar": "https://avatars.githubusercontent.com/u/6994102?s=460&u=4bedc88112489e7f412795ae8e0d332c63114eac&v=4",
       "username": "anuptamang",
+      "homepage": "anuptamang.com.np",
       "isVerified": true,
-      "followers": ["user-02", "user-03"],
-      "following": ["user-02", "user-03"],
-      "followedBy": ["user-02", "user-03"],
+      "followers": ["jondoe12345", "rosadean2580"],
+      "following": ["jondoe12345", "rosadean2580"],
       "savedPost": ["user-01-post-01"]
     },
     {
@@ -18,10 +18,10 @@
       "email": "bcd@gmail.com",
       "avatar": "https://randomuser.me/api/portraits/men/36.jpg",
       "username": "jondoe12345",
-      "isVerified": ["user-01", "user-03"],
-      "followers": ["user-01", "user-03"],
-      "following": [],
-      "followedBy": ["user-01", "user-03"],
+      "homepage": "https://randomuser.me/",
+      "isVerified": false,
+      "followers": [],
+      "following": ["rosadean2580"],
       "savedPost": ["user-02-post-01"]
     },
     {
@@ -30,10 +30,10 @@
       "email": "efg@gmail.com",
       "avatar": "https://randomuser.me/api/portraits/women/88.jpg",
       "username": "rosadean2580",
+      "homepage": null,
       "isVerified": false,
-      "followers": ["user-01", "user-02"],
-      "following": ["user-02"],
-      "followedBy": ["user-01", "user-02"],
+      "followers": ["jondoe12345", "anuptamang"],
+      "following": ["jondoe12345", "anuptamang"],
       "savedPost": ["user-03-post-01"]
     }
   ],
@@ -41,7 +41,7 @@
     {
       "postId": "user-01-post-01",
       "userId": 1,
-      "posted": 1615103534,
+      "posted": 1615396089,
       "location": "Kathmandu, Nepal",
       "postImage": [
         "https://lp-cms-production.imgix.net/2019-06/813869da84003e9ab623499ae2465723-bodhnath-stupa.jpg",
@@ -66,8 +66,21 @@
       "postLikes": 10
     },
     {
+      "postId": "user-01-post-03",
+      "userId": 1,
+      "posted": 1615107700,
+      "location": "Makalu, Nepal",
+      "postImage": [
+        "https://lh3.googleusercontent.com/proxy/P-BmmK7DreyJP5iDokPVxkTjnocI8RW16QWmWmwkhcieBqcMnN-PdxUA5w7-LDcSm89oxCHXHXVDvhyMAxfMAo_b5fVm3UXl8FTYFYsqTy5emw1yqS1j0Bzgewf7nBM5ZVg"
+      ],
+      "postVideo": null,
+      "postVideoCover": null,
+      "postCaption": "Makalu Base Camp Trek, adventure around world fifth highest mountains located Nepal Far Eastern Himalaya within scenic and beautiful Arun and Barun valley.",
+      "postLikes": 30
+    },
+    {
       "postId": "user-02-post-01",
-      "userId": 2,
+      "userId": 1,
       "posted": 1615189574,
       "location": "Zurich, Switzerland",
       "postImage": [
@@ -91,6 +104,19 @@
       "postVideoCover": null,
       "postCaption": "Famouse for: #Lake Zurich (Zurichsee) Lake Zurich (Zurichsee)",
       "postLikes": 20
+    },
+    {
+      "postId": "user-02-post-03",
+      "userId": 2,
+      "posted": 1615189444,
+      "location": "Ilam, Nepal",
+      "postImage": [
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/11/fe/70/8f/breathtaking-view-of.jpg?w=1000&h=-1&s=1"
+      ],
+      "postVideo": null,
+      "postVideoCover": null,
+      "postCaption": "Explore Ilam",
+      "postLikes": 2000
     },
     {
       "postId": "user-03-post-01",
@@ -118,6 +144,19 @@
       "postVideoCover": null,
       "postCaption": "Safely visit DC with mask and hand sanitizer",
       "postLikes": 122
+    },
+    {
+      "postId": "user-03-post-03",
+      "userId": 3,
+      "posted": 1615199898,
+      "location": "Smithsonian museums, Washington, DC",
+      "postImage": [
+        "https://www.furtenbachadventures.com/wp-content/uploads/fa_lhotse_2.jpg"
+      ],
+      "postVideo": null,
+      "postVideoCover": null,
+      "postCaption": "#Lhotse #Mountain",
+      "postLikes": 243
     }
   ],
   "comments": [

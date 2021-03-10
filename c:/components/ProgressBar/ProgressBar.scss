@@ -1,0 +1,27 @@
+@import 'assets/styles/_variables';
+
+.progress {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  background-color: $secondary-color;
+
+  .progress-bar {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    background-color: $primary-color;
+    transition: width 0.5s ease;
+    transition-delay: 0.2s;
+  }
+}
+
+.alt-progress-height {
+
+  .progress {
+    height: 4px;
+  }
+}

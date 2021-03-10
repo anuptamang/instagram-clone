@@ -1,0 +1,21 @@
+@import 'assets/styles/_variables';
+
+.fetch-progress-bar-wrap {
+  position: relative;
+  height: 4px;
+  background-color: transparent;
+
+  @media screen and (max-width: 1023px) {
+    display: none !important;
+  }
+
+  &.is-load {
+    //background-color: $primary-color;
+  }
+
+  .react-fetch-progress-bar {
+    background-color: $primary-color !important;
+    height: 4px;
+    //transition: width .1s linear !important;
+  }
+}

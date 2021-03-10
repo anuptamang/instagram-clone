@@ -10,22 +10,24 @@ import { navLinks } from 'constants/nav-routes'
 import './Header.scss'
 import UserDropdown from 'components/Header/UserDropdown'
 import {useLocationChange} from 'utils/utils'
+import { DB } from 'context/UserContext';
 
 function Header({location, handleLogout}) {
-   const [isActiveUser, setDropdownUser] = useState(false)
-   const [isActiveFav, setDropdownFav] = useState(false)
-   const [isNewPage, setNewPage] = useState(false)
-   const wrapperRefUser = useRef(null)
-   const wrapperRefFav = useRef(null)
-   hideOnClickOutside(wrapperRefUser, setDropdownUser)
-   hideOnClickOutside(wrapperRefFav, setDropdownFav)
+  const db = DB()
+  const [isActiveUser, setDropdownUser] = useState(false)
+  const [isActive, setDropdownFav] = useState(false)
+  const [isNewPage, setNewPage] = useState(false)
+  const wrapperRefUser = useRef(null)
+  const wrapperRefFav = useRef(null)
+  hideOnClickOutside(wrapperRefUser, setDropdownUser)
+  hideOnClickOutside(wrapperRefFav, setDropdownFav)
 
-   const pathname = location.pathname.split('/')[1]
-   const setAddActive = (path) => (path === pathname ? 'page-active' : '')
+  const pathname = location.pathname.split('/')[1]
+  const setAddActive = (path) => (path === pathname ? 'page-active' : '')
 
-   useLocationChange(() => {
-     setNewPage(true)
-   })
+  useLocationChange(() => {
+    setNewPage(true)
+  })
 
   return (
     <header className="border-b bg-white fixed top-0 left-0 right-0 z-50">
@@ -58,19 +60,21 @@ function Header({location, handleLogout}) {
               ref={wrapperRefFav}
               className="relative"
               onClick={() => {
-                setDropdownFav(!isActiveFav)
+                setDropdownFav(!isActive)
                 setNewPage(false)
               }}
             >
               <span className="cursor-pointer">
-                {isActiveFav ? (
+                {isActive ? (
                   <FavoriteIcon />
                 ) : (
                   <FavoriteBorderOutlinedIcon />
                 )}
               </span>
-              <Dropdown isActive={isActiveFav}>
-                <div className="p-4">Favourite Items</div>
+              <Dropdown isActive={isActive}>
+                <div className="p-4">
+                  Notifications....
+                </div>
               </Dropdown>
             </div>
           </li>
@@ -87,7 +91,7 @@ function Header({location, handleLogout}) {
             >
               <img
                 className="rounded-full cursor-pointer"
-                src="https://randomuser.me/api/portraits/men/17.jpg"
+                src={db.loginUser.avatar}
                 width="22"
                 height="22"
                 alt=""

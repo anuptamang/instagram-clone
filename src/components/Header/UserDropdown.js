@@ -1,9 +1,15 @@
+import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
+import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined'
+import CachedIcon from '@material-ui/icons/Cached'
+import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined'
+import { DB } from 'context/UserContext'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { userDropdownLinks } from 'constants/nav-routes'
-import CachedIcon from '@material-ui/icons/Cached'
 
 function UserDropdown({handleLogout}) {
+  const db = DB()
+  console.log(db)
+
   const logout = () => {
     localStorage.removeItem('user')
     handleLogout('')
@@ -13,28 +19,42 @@ function UserDropdown({handleLogout}) {
     <>
       <ul className="list-none text-sm capitalize">
         <li>
-          <ul className="list-none">
-            {userDropdownLinks.map((item, index) => {
-              return index < userDropdownLinks.length ? (
-                <li key={item.key}>
-                  <NavLink
-                    className="block py-2 px-4 cursor-pointer hover:bg-gray-100 relative z-40"
-                    to={item.path}
-                  >
-                    <span className="mr-2">{item.icon}</span>
-                    {item.title}
-                  </NavLink>
-                </li>
-              ) : (
-                ''
-              )
-            })}
-          </ul>
+          <NavLink
+            className="block py-2 px-4 cursor-pointer hover:bg-gray-100 relative z-40"
+            to={`/${db.loginUser.username}`}
+          >
+            <span className="mr-2">
+              <AccountCircleOutlinedIcon />
+            </span>
+            Profile
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            className="block py-2 px-4 cursor-pointer hover:bg-gray-100 relative z-40"
+            to={`/${db.loginUser.username}/saved`}
+          >
+            <span className="mr-2">
+              <BookmarkBorderOutlinedIcon />
+            </span>
+            Saved
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            className="block py-2 px-4 cursor-pointer hover:bg-gray-100 relative z-40"
+            to="/accounts/edit"
+          >
+            <span className="mr-2">
+              <SettingsOutlinedIcon />
+            </span>
+            Settings
+          </NavLink>
         </li>
         <li className="py-2 px-4 cursor-pointer hover:bg-gray-100">
           <span className="mr-2">
             <CachedIcon />
-          </span>{' '}
+          </span>
           Switch Accounts
         </li>
       </ul>

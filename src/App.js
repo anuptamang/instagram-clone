@@ -1,12 +1,10 @@
 import Header from 'components/Header'
 import Login from 'components/User/Login'
-import { UserContext } from 'context/UserContext'
-import React, { useContext, useState } from 'react'
+import { DB } from 'context/UserContext'
+import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import Main from 'router'
 import './App.scss'
-import {DB} from 'context/UserContext'
-import LoggedInUser from 'components/User/LoggedInUser'
 
 function App() { 
   const db = DB()

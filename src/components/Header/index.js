@@ -1,19 +1,17 @@
-import React, {useRef, useState} from 'react'
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
+import UserDropdown from 'components/Header/UserDropdown';
 import SearchBox from 'components/SearchBox';
-import Logo from 'components/_common/Logo'
-import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import Dropdown from 'components/_common/Dropdown'
-import hideOnClickOutside from 'utils/ClickOutside'
-import { NavLink, withRouter } from 'react-router-dom'
-import { navLinks } from 'constants/nav-routes'
-import './Header.scss'
-import UserDropdown from 'components/Header/UserDropdown'
-import {useLocationChange} from 'utils/utils'
-import { DB } from 'context/UserContext';
+import Dropdown from 'components/_common/Dropdown';
+import Logo from 'components/_common/Logo';
+import { navLinks } from 'constants/nav-routes';
+import React, { useRef, useState } from 'react';
+import { NavLink, withRouter } from 'react-router-dom';
+import hideOnClickOutside from 'utils/ClickOutside';
+import { useLocationChange } from 'utils/utils';
+import './Header.scss';
 
 function Header({location, handleLogout, currentUser}) {
-  const db = DB()  
   const [isActiveUser, setDropdownUser] = useState(false)
   const [isActive, setDropdownFav] = useState(false)
   const [isNewPage, setNewPage] = useState(false)

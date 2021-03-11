@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
 import brandInstagram from 'assets/images/brand-instagram.png'
-import {DB} from 'context/UserContext'
+import { DB } from 'context/UserContext'
+import React, { useState } from 'react'
 
 function Login() {
   const db = DB()

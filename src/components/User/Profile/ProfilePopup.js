@@ -81,7 +81,7 @@ export const ProfilePopup = ({user}) => {
           posts.map((post, i) => {
             return (
               i < 3 && (
-                <NavLink
+                <NavLink key={i}
                   to={`/p/${post.postId}`}
                   className="block bg-cover h-32 hover:opacity-80 transition-opacity w-full"
                   style={{

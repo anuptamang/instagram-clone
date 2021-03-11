@@ -102,8 +102,8 @@ const ArticleContent = ({
             disableDotsControls
             items={
               article.post.postImage &&
-              article.post.postImage.map((image) => (
-                <div
+              article.post.postImage.map((image, i) => (
+                <div key={i}
                   className="img-holder h-96 w-full bg-cover bg-center"
                   style={{
                     backgroundImage: `url(${image})`,
@@ -139,8 +139,8 @@ const ArticleContent = ({
           {article.post.postCaption}
         </div>
         <div className="comments-holder">
-          {article.comments.map((comment) => (
-            <div className="comment text-sm py-1">
+          {article.comments.map((comment, i) => (
+            <div key={i} className="comment text-sm py-1">
               <strong>{comment.user[0].username}</strong> &nbsp;
               {comment.message}
             </div>

@@ -8,7 +8,7 @@ import './App.scss'
 
 function App() { 
   const db = DB()
-  const currentUser = db.users.find(({ username }) => (username = db.user))
+  const currentUser = db.users.find(({ username }) => (username === db.user))
   return (
     <Router>
       <div

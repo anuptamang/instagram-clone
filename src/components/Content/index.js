@@ -8,6 +8,7 @@ function Content() {
 
   const articles = db.posts.map(({ postId, ...post }) => ({
     post: post,
+    postId: postId,
     author: db.users.filter(({ userId }) => userId === post.userId),
     comments: db.comments
       .filter(({ commentId }) => commentId === postId)

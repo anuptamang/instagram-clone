@@ -141,7 +141,7 @@ const ArticleContent = ({
         </div>
       </div>
       <div className="input-panel py-2 pr-12 pl-9 border-t border-gray-300 relative">
-        <ArticleCommentForm />
+        <ArticleCommentForm article={article} />
       </div>
       <ArticleActivityPopup
         isVisible={isRodalVisible}

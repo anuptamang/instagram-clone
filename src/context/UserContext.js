@@ -35,7 +35,10 @@ export const UserProvider = ({children}) => {
     posts,
     comments,
     setUser,
-    user
+    user,
+    setPosts,
+    setComments,
+    setUsers
   }
 
   return (

@@ -6,9 +6,8 @@ import { DB } from 'context/UserContext'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-function UserDropdown({handleLogout}) {
+function UserDropdown({handleLogout, currentUser}) {
   const db = DB()
-  console.log(db)
 
   const logout = () => {
     localStorage.removeItem('user')
@@ -21,7 +20,7 @@ function UserDropdown({handleLogout}) {
         <li>
           <NavLink
             className="block py-2 px-4 cursor-pointer hover:bg-gray-100 relative z-40"
-            to={`/${db.loginUser.username}`}
+            to={`/${currentUser && currentUser.username}`}
           >
             <span className="mr-2">
               <AccountCircleOutlinedIcon />
@@ -32,7 +31,7 @@ function UserDropdown({handleLogout}) {
         <li>
           <NavLink
             className="block py-2 px-4 cursor-pointer hover:bg-gray-100 relative z-40"
-            to={`/${db.loginUser.username}/saved`}
+            to={`/${currentUser && currentUser.username}/saved`}
           >
             <span className="mr-2">
               <BookmarkBorderOutlinedIcon />

@@ -12,8 +12,8 @@ import UserDropdown from 'components/Header/UserDropdown'
 import {useLocationChange} from 'utils/utils'
 import { DB } from 'context/UserContext';
 
-function Header({location, handleLogout}) {
-  const db = DB()
+function Header({location, handleLogout, currentUser}) {
+  const db = DB()  
   const [isActiveUser, setDropdownUser] = useState(false)
   const [isActive, setDropdownFav] = useState(false)
   const [isNewPage, setNewPage] = useState(false)
@@ -65,16 +65,10 @@ function Header({location, handleLogout}) {
               }}
             >
               <span className="cursor-pointer">
-                {isActive ? (
-                  <FavoriteIcon />
-                ) : (
-                  <FavoriteBorderOutlinedIcon />
-                )}
+                {isActive ? <FavoriteIcon /> : <FavoriteBorderOutlinedIcon />}
               </span>
               <Dropdown isActive={isActive}>
-                <div className="p-4">
-                  Notifications....
-                </div>
+                <div className="p-4">Notifications....</div>
               </Dropdown>
             </div>
           </li>
@@ -91,13 +85,16 @@ function Header({location, handleLogout}) {
             >
               <img
                 className="rounded-full cursor-pointer"
-                src={db.loginUser.avatar}
+                src={currentUser && currentUser.avatar}
                 width="22"
                 height="22"
                 alt=""
               />
               <Dropdown isActive={isActiveUser} isNewPage={isNewPage}>
-                <UserDropdown handleLogout={handleLogout} />
+                <UserDropdown
+                  handleLogout={handleLogout}
+                  currentUser={currentUser}
+                />
               </Dropdown>
             </div>
           </li>

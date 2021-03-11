@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import brandInstagram from 'assets/images/brand-instagram.png'
+import {DB} from 'context/UserContext'
 
-function Login({setUser}) {
+function Login() {
+  const db = DB()
   const [input, setInput] = useState('')
 
-  const login = () => {
+  const login = (e) => {
+    e.preventDefault()
     localStorage.setItem('user', input)
-    setUser(input)
+    db.setUser(input)
   }
 
   return (
@@ -15,6 +18,7 @@ function Login({setUser}) {
         <div className="mb-12">
           <img src={brandInstagram} alt="" />
         </div>
+        <div className="mb-3 text-white text-sm">Please, put username <i><strong className="text-green-400">anuptamang</strong></i> , otherwise the app will broke!</div>
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}

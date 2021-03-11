@@ -6,8 +6,7 @@ export const UserContext = createContext()
 
 export const UserProvider = ({children}) => {
   // Initialize needed states
-  const [user] = useState(localStorage.getItem('user'))
-  const [loginUser, setLoginUser] = useState([])
+  const [user, setUser] = useState(localStorage.getItem('user'))
   const [users, setUsers] = useState([])
   const [posts, setPosts] = useState([])
   const [comments, setComments] = useState([])
@@ -23,7 +22,6 @@ export const UserProvider = ({children}) => {
       setUsers(res.data.users)
       setPosts(res.data.posts)
       setComments(res.data.comments)
-      setLoginUser(res.data.users.find(({username}) => username === user))
     })
     const timer = setTimeout(() => {
       setLoading(false)
@@ -31,9 +29,18 @@ export const UserProvider = ({children}) => {
     return () => clearTimeout(timer)
   }, [])
 
+  const userProvider = {
+    users,
+    loading,
+    posts,
+    comments,
+    setUser,
+    user
+  }
+
   return (
     <UserContext.Provider
-      value={{ loginUser, users, loading, posts, comments }}
+      value={userProvider}
     >
       {children}
     </UserContext.Provider>

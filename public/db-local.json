@@ -44,8 +44,8 @@
       "posted": 1615396089,
       "location": "Kathmandu, Nepal",
       "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/instagram-clone-725f8.appspot.com/o/images%2F1.jpg?alt=media&token=6f04a02f-b8df-45b9-af83-19370c37f4e2",
-        "https://firebasestorage.googleapis.com/v0/b/instagram-clone-725f8.appspot.com/o/images%2F2.jpg?alt=media&token=54bb844a-0c59-42e7-b5f6-2ef9b1fe7047"
+        "https://lp-cms-production.imgix.net/2019-06/813869da84003e9ab623499ae2465723-bodhnath-stupa.jpg",
+        "https://cdn.kimkim.com/files/a/content_articles/featured_photos/656bb11870d1786be69ae178e45d0723244384c6/big-3985131bf28128fdc4c2ffcd12779cb0.jpg"
       ],
       "postVideo": null,
       "postVideoCover": null,
@@ -58,9 +58,9 @@
       "posted": 1615103200,
       "location": "Lalitpur, Nepal",
       "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/instagram-clone-725f8.appspot.com/o/images%2F2.jpg?alt=media&token=54bb844a-0c59-42e7-b5f6-2ef9b1fe7047"
+        "https://cdn.kimkim.com/files/a/content_articles/featured_photos/656bb11870d1786be69ae178e45d0723244384c6/big-3985131bf28128fdc4c2ffcd12779cb0.jpg"
       ],
-      "postVideo": "https://firebasestorage.googleapis.com/v0/b/instagram-clone-725f8.appspot.com/o/videos%2Fanim1.mp4?alt=media&token=0d02174f-e5b3-4e08-b97f-33e2a0818ab4",
+      "postVideo": "videos/anim1.mp4",
       "postVideoCover": null,
       "postCaption": "For a perfect day in Kathmandu, consider staying in Old Patan instead.",
       "postLikes": 10
@@ -71,7 +71,7 @@
       "posted": 1615107700,
       "location": "Makalu, Nepal",
       "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/instagram-clone-725f8.appspot.com/o/images%2F3.jpg?alt=media&token=d75e261a-753e-4bb3-ac13-1c6d1e2bc0c3"
+        "https://lh3.googleusercontent.com/proxy/P-BmmK7DreyJP5iDokPVxkTjnocI8RW16QWmWmwkhcieBqcMnN-PdxUA5w7-LDcSm89oxCHXHXVDvhyMAxfMAo_b5fVm3UXl8FTYFYsqTy5emw1yqS1j0Bzgewf7nBM5ZVg"
       ],
       "postVideo": null,
       "postVideoCover": null,
@@ -84,7 +84,7 @@
       "posted": 1615189574,
       "location": "Zurich, Switzerland",
       "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/instagram-clone-725f8.appspot.com/o/images%2F4.jpg?alt=media&token=9e49a187-be1f-48af-9a5e-2eaa9c12d335"
+        "https://upload.wikimedia.org/wikipedia/commons/7/76/Z%C3%BCrich.jpg"
       ],
       "postVideo": null,
       "postVideoCover": null,
@@ -97,8 +97,8 @@
       "posted": 1615189111,
       "location": "Lake Zurich, Switzerland",
       "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/instagram-clone-725f8.appspot.com/o/images%2F5.jpg?alt=media&token=56872c80-2f2a-47df-8ac6-17122bc0fd07",
-        "https://firebasestorage.googleapis.com/v0/b/instagram-clone-725f8.appspot.com/o/images%2F4.jpg?alt=media&token=9e49a187-be1f-48af-9a5e-2eaa9c12d335"
+        "https://cp-website-images.s3.eu-central-1.amazonaws.com/wp-content/uploads/2020/01/56618949_s.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/7/76/Z%C3%BCrich.jpg"
       ],
       "postVideo": null,
       "postVideoCover": null,
@@ -111,7 +111,7 @@
       "posted": 1615189444,
       "location": "Ilam, Nepal",
       "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/instagram-clone-725f8.appspot.com/o/images%2F7.jpg?alt=media&token=48315847-419d-4540-a89d-25a31890aa5a"
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/11/fe/70/8f/breathtaking-view-of.jpg?w=1000&h=-1&s=1"
       ],
       "postVideo": null,
       "postVideoCover": null,
@@ -124,9 +124,9 @@
       "posted": 1615193174,
       "location": "Washington, DC",
       "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/instagram-clone-725f8.appspot.com/o/images%2F8.jpg?alt=media&token=6efaa4d3-cd2b-4679-bd2a-9422209a60cf"
+        "https://schiff.house.gov/imo/media/image/OverlookingDC1.jpg"
       ],
-      "postVideo": "https://firebasestorage.googleapis.com/v0/b/instagram-clone-725f8.appspot.com/o/videos%2Fanim1.mp4?alt=media&token=0d02174f-e5b3-4e08-b97f-33e2a0818ab4",
+      "postVideo": "videos/anim1.mp4",
       "postVideoCover": null,
       "postCaption": "Safely visit DC with mask and hand sanitizer",
       "postLikes": 5
@@ -137,8 +137,8 @@
       "posted": 1615192222,
       "location": "Smithsonian museums, Washington, DC",
       "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/instagram-clone-725f8.appspot.com/o/images%2F9.jpg?alt=media&token=1b106ae7-1ada-432b-bae7-e97aa838946f",
-        "https://firebasestorage.googleapis.com/v0/b/instagram-clone-725f8.appspot.com/o/images%2F8.jpg?alt=media&token=6efaa4d3-cd2b-4679-bd2a-9422209a60cf"
+        "https://storyv.com/wp-content/uploads/2020/11/6c30c589a823bf4fccbf239ee16de2d6_content_img_719392389280-1.jpg",
+        "https://schiff.house.gov/imo/media/image/OverlookingDC1.jpg"
       ],
       "postVideo": null,
       "postVideoCover": null,
@@ -151,11 +151,11 @@
       "posted": 1615199898,
       "location": "Smithsonian museums, Washington, DC",
       "postImage": [
-        "https://firebasestorage.googleapis.com/v0/b/instagram-clone-725f8.appspot.com/o/images%2F8.jpg?alt=media&token=6efaa4d3-cd2b-4679-bd2a-9422209a60cf"
+        "https://www.furtenbachadventures.com/wp-content/uploads/fa_lhotse_2.jpg"
       ],
       "postVideo": null,
       "postVideoCover": null,
-      "postCaption": "#Museums",
+      "postCaption": "#Lhotse #Mountain",
       "postLikes": 243
     }
   ],

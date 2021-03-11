@@ -4,9 +4,9 @@
       "name": "Anup Tamang",
       "userId": 1,
       "email": "abc@gmail.com",
-      "avatar": "https://randomuser.me/api/portraits/men/83.jpg",
+      "avatar": "https://firebasestorage.googleapis.com/v0/b/instagram-clone-725f8.appspot.com/o/images%2Fanup.jpeg?alt=media&token=f4616b17-1f46-4ec5-b73f-539bd0e1fad3",
       "username": "anuptamang",
-      "homepage": "anuptamang.com.np",
+      "homepage": "https://anuptamang.com.np",
       "isVerified": true,
       "followers": ["jondoe12345", "rosadean2580"],
       "following": ["jondoe12345", "rosadean2580"],
@@ -41,7 +41,7 @@
     {
       "postId": "user-01-post-01",
       "userId": 1,
-      "posted": 1615396089,
+      "posted": 1614922619,
       "location": "Kathmandu, Nepal",
       "postImage": [
         "https://firebasestorage.googleapis.com/v0/b/instagram-clone-725f8.appspot.com/o/images%2F1.jpg?alt=media&token=6f04a02f-b8df-45b9-af83-19370c37f4e2",

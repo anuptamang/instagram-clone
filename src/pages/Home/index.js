@@ -1,16 +1,16 @@
 import React from 'react'
 import Content from 'components/Content'
-import Sidebar from 'components/Sidebar'
+// import Sidebar from 'components/Sidebar'
 
 function Home() {
   return (
     <div className="container mx-auto px-5 py-8 lg:flex">
-      <div className="content">
+      <div className="content mx-auto">
         <Content />
       </div>
-      <div className="sidebar hidden lg:block lg:pl-4">
+      {/* <div className="sidebar hidden lg:block lg:pl-4">
         <Sidebar />
-      </div>
+      </div> */}
     </div>
   )
 }

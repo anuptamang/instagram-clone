@@ -16,22 +16,18 @@ function Content() {
         user: db.users.filter(({ userId }) => userId === commentUserId),
       })),
   }))
-
-   
+  
   return (
     <>
       <div className="users-slider slider variable-width py-3 border overflow-hidden bg-white mb-6 relative rounded-sm flex flex-nowrap">
         <UserSlider />
       </div>
-      {
-        articles.map((article, i) => {
-          return  <Article
-            article={article}
-            loading={db.loading}
-            key={i}
-          />
-        })
-      }
+      {articles
+        .map((article) => article)
+        .sort((a, b) => (a.posted > b.posted ? 1 : -1))
+        .map((article, i) => {
+          return <Article article={article} loading={db.loading} key={i} />
+        })}
     </>
   )
 }

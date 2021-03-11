@@ -4,9 +4,9 @@ import './profilePopup.scss'
 import { DB } from 'context/UserContext'
 
 export const ProfilePopup = ({user}) => {
-  const db = DB()
-  console.log(user)
   let posts
+  const db = DB()
+
   return (
     <div className="user-popup absolute top-full left-0 -ml-1 z-50 rounded-2xl bg-white border border-gray-300 shadow w-96">
       <div className="header flex items-center p-5 py-4 border-b border-gray-300">
@@ -36,10 +36,10 @@ export const ProfilePopup = ({user}) => {
           <div className="name text-gray-500 text-sm mb-1">{user.name}</div>
           {user.homepage && (
             <a
-              className="text-blue-900 text-sm"
+              className="text-blue-900 text-sm lowercase"
               href={user.homepage}
-              rel="noreferrer"
               target="_blank"
+              rel="noopener noreferrer"
             >
               {user.homepage}
             </a>
@@ -81,7 +81,8 @@ export const ProfilePopup = ({user}) => {
           posts.map((post, i) => {
             return (
               i < 3 && (
-                <NavLink key={i}
+                <NavLink
+                  key={i}
                   to={`/p/${post.postId}`}
                   className="block bg-cover h-32 hover:opacity-80 transition-opacity w-full"
                   style={{
@@ -103,9 +104,7 @@ export const ProfilePopup = ({user}) => {
           </NavLink>
         </div>
         <div className="following">
-          <button
-            className="block rounded-md border border-gray-400 py-1 px-4 text-center font-bold capitalize text-sm outline-none w-full focus:outline-none"
-          >
+          <button className="block rounded-md border border-gray-400 py-1 px-4 text-center font-bold capitalize text-sm outline-none w-full focus:outline-none">
             Following
           </button>
         </div>

@@ -4,10 +4,10 @@
 ## Technologies Used:
 - React
 - Hooks
-- React Router
-- Firebase DB, Auth, Hosting
+- React Router (react-router-dom)
+- Context
+- Firebase DB, Auth, Hosting, Storage
 - Tailwind CSS
 - Material Icons
-- Random User API
 - Axios
 - React Material Skeleton Loader

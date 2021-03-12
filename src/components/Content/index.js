@@ -12,8 +12,9 @@ function Content() {
     author: db.users.filter(({ userId }) => userId === post.userId),
     comments: db.comments
       .filter(({ commentId }) => commentId === postId)
-      .map(({ commentUserId, message }) => ({
+      .map(({ commentUserId, message , posted}) => ({
         message,
+        posted,
         user: db.users.filter(({ userId }) => userId === commentUserId),
       })),
   }))

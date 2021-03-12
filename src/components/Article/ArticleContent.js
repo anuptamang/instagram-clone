@@ -126,7 +126,7 @@ const ArticleContent = ({
           {article.post.postCaption}
         </div>
         <div className="comments-holder">
-          {article.comments.map((comment, i) => (
+          {article.comments.sort((a,b) => (a.posted > b.posted ? 1 : -1)).map((comment, i) => (
             <div key={i} className="comment text-sm py-1">
               <strong>{comment.user[0].username}</strong> &nbsp;
               {comment.message}

@@ -14,7 +14,7 @@ const AuthorAvatar = ({article}) => {
     >
       <NavLink
         to={`/${article.author[0].username}`}
-        className="img-avatar rounded-full relative"
+        className="img-avatar rounded-full relative border border-gray-200 w-8 h-8 inline-block"
       >
         <img
           className="rounded-full block cursor-pointer"

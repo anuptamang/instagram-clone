@@ -6,13 +6,17 @@ import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded'
 import SendOutlinedIcon from '@material-ui/icons/SendOutlined'
 import animVideoCover from 'assets/images/anim-screen.png'
 import ArticleActivityPopup from 'components/User/Profile/ArticleActivityPopup'
-import React from 'react'
+import React, { useState } from 'react'
 import AliceCarousel from 'react-alice-carousel'
 import ReactPlayer from 'react-player'
 import VisibilitySensor from 'react-visibility-sensor'
 import ArticleCommentForm from './ArticleCommentForm'
 import AuthorAvatar from './AuthorAvatar'
 import AuthorHeader from './AuthorHeader'
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import BookmarkIcon from '@material-ui/icons/Bookmark'
+import ArticleComment from './ArticleComment'
+import UserNameDropdown from './UserNameDropdown'
 
 const ArticleContent = ({
   article,
@@ -25,20 +29,36 @@ const ArticleContent = ({
   setIsRodalVisible,
   hasVideo
 }) => {
-  let hrs
+  let hrs, timer
   const date = new Date()
   const now = Math.floor(date.getTime() / 1000)  
+  const [isLiked, setIsLiked] = useState(false)
+  const [likeCount, setLikeCount] = useState(article.post.postLikes)
+  const [isClicked, setIsClicked] = useState(false)
+  const [isSaved, setIsSaved] = useState(false)
+
+  const handleLike = () => {
+    setIsLiked(!isLiked)
+    !isLiked
+      ? setLikeCount(article.post.postLikes + 1)
+      : setLikeCount(article.post.postLikes)
+  }  
+
+  const handleClick = () => {
+    clearTimeout(timer)
+    setIsClicked(true)
+    timer = setTimeout(() => {
+      setIsClicked(false)
+    }, 300)
+  }
+  
 
   return (
     <div className="article-holder">
       <div className="article-header relative flex items-center py-3 px-4">
-        <AuthorAvatar
-          article={article}
-        />
+        <AuthorAvatar article={article} />
         <h3 className="text-sm capitalize pl-3 font-medium relative">
-          <AuthorHeader
-            article={article}
-          />
+          <AuthorHeader article={article} />
           <span className="block text-xs font-normal">
             {article.post.location && article.post.location}
           </span>
@@ -105,7 +125,21 @@ const ArticleContent = ({
         <div className="top-panel flex justify-between">
           <ul className="list-none flex items-center -ml-2">
             <li className="px-2">
-              <FavoriteBorderIcon className="fill-current text-gray-700" />
+              <div
+                onClick={() => {
+                  handleLike()
+                  handleClick()
+                }}
+                className={`like inline-block cursor-pointer animate__animated ${
+                  isClicked && 'animate__pulse_active'
+                }`}
+              >
+                {isLiked ? (
+                  <FavoriteIcon className="fill-current text-red-600" />
+                ) : (
+                  <FavoriteBorderIcon className="fill-current text-gray-700" />
+                )}
+              </div>
             </li>
             <li className="px-2">
               <ChatBubbleOutlineIcon className="fill-current text-gray-700" />
@@ -114,24 +148,28 @@ const ArticleContent = ({
               <SendOutlinedIcon className="fill-current text-gray-700 transform -rotate-45 origin-top -ml-2" />
             </li>
           </ul>
-          <div className="save">
-            <BookmarkBorderOutlinedIcon className="fill-current text-gray-700" />
+          <div
+            onClick={() => setIsSaved(!isSaved)}
+            className="save cursor-pointer"
+          >
+            {isSaved ? (
+              <BookmarkIcon className="fill-current text-gray-700" />
+            ) : (
+              <BookmarkBorderOutlinedIcon className="fill-current text-gray-700" />
+            )}
           </div>
         </div>
-        <div className="likes-count text-sm pt-2">
-          {article.post.postLikes} likes
-        </div>
+        <div className="likes-count text-sm pt-2">{likeCount} likes</div>
         <div className="comment text-sm py-1">
-          <strong>{article.author[0].username}</strong> &nbsp;
+          <UserNameDropdown user={article.author[0]} />
           {article.post.postCaption}
         </div>
         <div className="comments-holder">
-          {article.comments.sort((a,b) => (a.posted > b.posted ? 1 : -1)).map((comment, i) => (
-            <div key={i} className="comment text-sm py-1">
-              <strong>{comment.user[0].username}</strong> &nbsp;
-              {comment.message}
-            </div>
-          ))}
+          {article.comments
+            .sort((a, b) => (a.posted > b.posted ? 1 : -1))
+            .map((comment, i) => (
+              <ArticleComment key={i} comment={comment} />
+            ))}
         </div>
         <div className="posted-on text-xs text-gray-400 uppercase pt-2">
           {
@@ -146,6 +184,7 @@ const ArticleContent = ({
       <ArticleActivityPopup
         isVisible={isRodalVisible}
         setIsVisible={setIsRodalVisible}
+        article={article}
       />
     </div>
   )

@@ -1,0 +1,12 @@
+.rodal-dialog {
+  border-radius: 10px;
+  padding: 0;
+  height: auto !important;
+  bottom: auto;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.rodal-close {
+  display: none;
+}

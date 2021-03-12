@@ -4,3 +4,19 @@
     height: 6em;
   }
 }
+
+.like {
+  &.animate__pulse_active {
+    animation: pulseOut 0.3s ease forwards;
+  }
+}
+
+@keyframes pulseOut {
+  0%, 100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.3);
+  }
+}

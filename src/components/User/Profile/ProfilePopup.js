@@ -8,7 +8,7 @@ export const ProfilePopup = ({user}) => {
   const db = DB()
 
   return (
-    <div className="user-popup absolute top-full left-0 -ml-1 z-50 rounded-2xl bg-white border border-gray-300 shadow w-96">
+    <div className="user-popup absolute top-full -left-10 md:left-0 -ml-1 z-50 rounded-2xl bg-white border border-gray-300 shadow w-80 md:w-96">
       <div className="header flex items-center p-5 py-4 border-b border-gray-300">
         <div className="img-avatar rounded-full relative border border-gray-200 w-14 h-14 inline-block">
           <NavLink to={`/${user.username}`}>

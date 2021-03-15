@@ -10,7 +10,7 @@ function UserSlider() {
 
   const slideItems = db.users && db.users.map((user) => (
     <div className="slide w-20 px-2 text-center">
-      <NavLink to={`/stories/${user.userId}`}>
+      <NavLink to={`/stories/${user.username}`}>
         <div className="img-avatar inline-block rounded-full overflow-hidden">
           <img
             className="rounded-full block"

@@ -6,13 +6,14 @@ import { DB } from 'context/UserContext'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-function UserDropdown({handleLogout, currentUser}) {
+function UserDropdown({ handleLogout, currentUser }) {
   const db = DB()
 
   const logout = () => {
     localStorage.removeItem('user')
     handleLogout('')
-  }  
+    db.setUser('')
+  }
 
   return (
     <>

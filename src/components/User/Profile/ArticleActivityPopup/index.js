@@ -4,7 +4,7 @@ import 'rodal/lib/rodal.css'
 import './rodal.scss'
 
 const ArticleActivityPopup = ({isVisible, setIsVisible, article}) => {
-  console.log(article)
+  // console.log(article)
   return (
     <Rodal visible={isVisible} onClose={() => setIsVisible(false)}>
       <ul className="list-none text-center text-sm">

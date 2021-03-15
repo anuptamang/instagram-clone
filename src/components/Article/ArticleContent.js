@@ -55,7 +55,7 @@ const ArticleContent = ({
 
   return (
     <div className="article-holder">
-      <div className="article-header relative flex items-center py-3 px-4">
+      <div className="article-header relative flex items-center py-3 pl-4 pr-10">
         <AuthorAvatar article={article} />
         <h3 className="text-sm capitalize pl-3 font-medium relative">
           <AuthorHeader article={article} />

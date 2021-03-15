@@ -1,27 +1,38 @@
 import Header from 'components/Header'
 import Login from 'components/User/Login'
-import { DB } from 'context/UserContext'
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import Main from 'router'
 import './App.scss'
 
 function App() { 
-  const db = DB()
-  const currentUser = db.users.find(({ username }) => (username === db.user))
-  console.log(db)
+  const [loginUser, setLoginUser] = useState(JSON.parse(localStorage.getItem('user')))    
+    const [isLoading, setIsLoading] = useState(false)
+
+
+  // useEffect(() => {
+  //   db.collection('users').onSnapshot((snapshot) => {
+  //     setLoginUser(snapshot.docs.map((doc) => doc.data()))
+  //   })
+  // }, [])
+  
   return (
     <Router>
       <div
-        className={`App overflow-hidden relative pt-14 min-h-screen ${
-          !db.user ? 'bg-gradient-instagram' : 'bg-gray-100'
-        }`}
+        className={`App overflow-hidden relative min-h-screen bg-gradient-instagram
+         ${loginUser && 'bg-gray-100'}`}
       >
-        {!db.user ? (
-          <Login setUser={db.setUser} />
+        {!loginUser ? (
+          <>
+            <Login
+              setLoginUser={setLoginUser}
+              setIsLoading={setIsLoading}
+              isLoading={isLoading}
+            />
+          </>
         ) : (
           <>
-            <Header handleLogout={db.setUser} currentUser={currentUser} />
+            <Header handleLogout={setLoginUser} currentUser={loginUser} />
             <Main />
           </>
         )}

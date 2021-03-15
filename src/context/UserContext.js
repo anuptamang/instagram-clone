@@ -6,7 +6,9 @@ export const UserContext = createContext()
 
 export const UserProvider = ({children}) => {
   // Initialize needed states
-  const [user, setUser] = useState(localStorage.getItem('user'))
+  const [user, setUser] = useState(
+    localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : ''
+  )
   const [users, setUsers] = useState([])
   const [posts, setPosts] = useState([])
   const [comments, setComments] = useState([])

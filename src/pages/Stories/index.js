@@ -2,6 +2,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
 import React from 'react'
 import Stories from 'react-insta-stories'
+import { NavLink } from 'react-router-dom'
 import './stories.scss'
 
 function SeeMore({ close }) {
@@ -165,7 +166,7 @@ function StoriesPage() {
   
   return (
     <div className="py-12 stories-slider items-center relative">
-      <div className="close absolute right-5 top-5 z-50">
+      <NavLink to="/" className="close absolute right-5 top-5 z-50">
         <svg
           aria-label="Close"
           class="_8-yf5 "
@@ -180,7 +181,7 @@ function StoriesPage() {
             fill-rule="evenodd"
           ></path>
         </svg>
-      </div>
+      </NavLink>
       <button className="btn-prev text-black bg-white rounded-full w-10 h-10 flex items-center justify-center absolute left-1/2 top-1/2  transform -translate-x-1/2 z-50 cursor-pointer pl-2 focus:outline-none">
         <ArrowBackIosIcon />
       </button>

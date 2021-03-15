@@ -1,39 +1,46 @@
 import brandInstagram from 'assets/images/brand-instagram.png'
-import { DB } from 'context/UserContext'
+import PageLoader from 'components/_common/PageLoader'
 import React, { useState } from 'react'
+import SignIn from './SignIn'
+import Signup from './Signup'
 
-function Login() {
-  const db = DB()
-  const [input, setInput] = useState('')
-
-  const login = (e) => {
-    e.preventDefault()
-    localStorage.setItem('user', input)
-    db.setUser(input)
-  }
+function Login({ setLoginUser, setIsLoading, isLoading }) {
+  const [signupEmail, setSignupEmail] = useState('')
+  const [isEmailSent, setIsEmailSent] = useState(false)
 
   return (
-    <div className="container min-h-screen flex items-center justify-center">
-      <form>
-        <div className="mb-12">
-          <img src={brandInstagram} alt="" />
+    <>
+      {isLoading ? (
+        <PageLoader />
+      ) : (
+        <div className="container min-h-screen flex items-center justify-center">
+          <form className="md:w-full lg:w-3/4 text-center">
+            <div className="mb-12 inline-block">
+              <img src={brandInstagram} alt="" />
+              <span class="text-white block text-right">CLONE</span>
+            </div>
+            {isEmailSent ? (
+              <div className="text-white text-center text-xs">
+                Please verify your email address. The email verification message
+                is send to this email address: {signupEmail}
+              </div>
+            ) : (
+              <div className="row md:grid md:grid-cols-2 md:space-x-5 text-left">
+                <SignIn
+                  setIsLoading={setIsLoading}
+                  setLoginUser={setLoginUser}
+                />
+                <Signup
+                  setSignupEmail={setSignupEmail}
+                  signupEmail={signupEmail}
+                  setIsEmailSent={setIsEmailSent}
+                />
+              </div>
+            )}
+          </form>
         </div>
-        <div className="mb-3 text-white text-sm">Please, put username <i><strong className="text-green-400">anuptamang</strong></i> , otherwise the app will broke!</div>
-        <input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          type="text"
-          placeholder="Set your name here"
-        />
-        <button
-          disabled={!input}
-          onClick={login}
-          className="bg-pink-500 text-white px-8 py-3 rounded-lg border-0 focus:border-opacity-0 focus:ring-0"
-        >
-          Log in
-        </button>
-      </form>
-    </div>
+      )}
+    </>
   )
 }
 

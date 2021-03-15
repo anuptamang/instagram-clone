@@ -11,7 +11,7 @@ import hideOnClickOutside from 'utils/ClickOutside';
 import { useLocationChange } from 'utils/utils';
 import './Header.scss';
 
-function Header({location, handleLogout, currentUser}) {
+function Header({ location, handleLogout, currentUser, setLoggedIn }) {
   const [isActiveUser, setDropdownUser] = useState(false)
   const [isActive, setDropdownFav] = useState(false)
   const [isNewPage, setNewPage] = useState(false)
@@ -90,6 +90,7 @@ function Header({location, handleLogout, currentUser}) {
               />
               <Dropdown isActive={isActiveUser} isNewPage={isNewPage}>
                 <UserDropdown
+                  setLoggedIn={setLoggedIn}
                   handleLogout={handleLogout}
                   currentUser={currentUser}
                 />

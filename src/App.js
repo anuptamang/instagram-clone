@@ -7,7 +7,7 @@ import './App.scss'
 
 function App() { 
   const [loginUser, setLoginUser] = useState(JSON.parse(localStorage.getItem('user')))    
-    const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
 
   // useEffect(() => {

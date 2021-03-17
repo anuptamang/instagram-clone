@@ -1,10 +1,17 @@
 import db, { auth, provider } from 'fb/firebase'
 import React, { useState } from 'react'
 import firebase from 'firebase'
+import LoaderIcon from 'components/_common/LoaderIcon'
+import ErrorMessage from 'components/_common/ErrorMessage'
+import { v4 as uuidv4 } from 'uuid'
 
 const SignIn = ({ setIsLoading, setLoginUser }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
+  const [errorVerification, setErrorVerification] = useState(false)
+  const [currUser, setCurrUser] = useState('')
 
   const loginWithGoogle = (e) => {
     e.preventDefault()
@@ -16,6 +23,7 @@ const SignIn = ({ setIsLoading, setLoginUser }) => {
         db.collection('users').onSnapshot((snapshot) => {
           let users = snapshot.docs.map((doc) => doc.data())
           let payload = {
+            id: uuidv4(),
             loginType:'gmail',
             name: result.user.displayName,
             avatar: result.user.photoURL,
@@ -43,52 +51,116 @@ const SignIn = ({ setIsLoading, setLoginUser }) => {
 
   const handleLogin = (e) => {
     e.preventDefault()
+    setLoading(true)
     
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then((result) => {
-         setIsLoading(true)
-         db.collection('users').onSnapshot((snapshot) => {
-           let users = snapshot.docs.map((doc) => doc.data())
-           let payload = {
-             loginType: 'email',
-             name: result.user.displayName,
-             avatar: result.user.photoURL,
-             email: result.user.email,
-             emailVerified: result.user.emailVerified,
-             createdAt: firebase.firestore.Timestamp.now(),
-             username: result.user.displayName ? result.user.displayName
-               .toLowerCase()
-               .replaceAll(' ', '') : '',
-           }
+      .then((result) => {       
 
-           if (!users.find(({ email }) => email === result.user.email)) {
-             localStorage.setItem('user', JSON.stringify(payload))
-             setLoginUser(payload)
-             db.collection('users').add(payload)
-           } else {
-             localStorage.setItem('user', JSON.stringify(payload))
-             setLoginUser(payload)
-           }
-           setIsLoading(false)
-         })
-        
+        // db.collection('users').doc(veririedId).set(
+        //   {
+        //     emailVerified: result.user.emailVerified,
+        //   },
+        //   { merge: true }
+        // )
+
+        console.log()
+
+        if (!result.user.emailVerified) {
+          setErrorVerification(true)
+          setLoading(false)
+        } else if (result.user.emailVerified) {
+          // setIsLoading(true)
+          // db.collection('users').onSnapshot((snapshot) => {
+          //   // setCurrUser(snapshot.docs.map((doc) => doc.data()))
+          //   snapshot.docs.map((doc) => (doc.data()[0])).set(
+          //   {
+          //     emailVerified: result.user.emailVerified,
+          //   },
+          //   { merge: true }
+          // )
+          //   console.log(snapshot.docs.map((doc) => doc.data())[0])
+          // })
+          // console.log(
+          //   db
+          //     .collection('users')
+          //     .onSnapshot((snapshot) => snapshot.docs.map((doc) => doc.data()))
+          //     .find(({ email }) => email === result.user.email)
+          // )
+
+          // db.collection('users').doc(result.user.email).set(
+          //   {
+          //     emailVerified: result.user.emailVerified,
+          //   },
+          //   { merge: true }
+          // )
+          // let currUser = db
+          //   .collection('users')
+          //   .onSnapshot((snapshot) => snapshot.docs.map((doc) => doc.data()))
+          //   .find(({ email }) => email === result.user.email)
+
+          // console.log(currUser)
+          // currUser && localStorage.setItem('user', JSON.stringify(currUser))
+          //   setLoginUser(currUser)
+
+          setLoading(false)
+          setIsLoading(false)
+
+          // db.collection('users').onSnapshot((snapshot) => {
+          //   let users = snapshot.docs.map((doc) => doc.data())
+          //   let currUser = users && users.find(({ email }) => email === result.user.email)
+          //   let payload = currUser
+          //     ? {
+          //         ...currUser,
+          //         emailVerified: result.user.emailVerified,
+          //       }
+          //     : {
+          //         loginType: 'email',
+          //         name: result.user.displayName,
+          //         avatar: result.user.photoURL,
+          //         email: result.user.email,
+          //         emailVerified: result.user.emailVerified,
+          //         createdAt: firebase.firestore.Timestamp.now(),
+          //         username: result.user.displayName ? result.user.displayName
+          //           .toLowerCase()
+          //           .replaceAll(' ', ''): '',
+          //       }
+
+          //   console.log(payload)
+          //   // localStorage.setItem('user', JSON.stringify(payload))
+          //   // setLoginUser(payload)
+          //   // db.collection('users').add(payload)
+
+          //   setLoading(false)
+          //   setIsLoading(false)
+          // })
+          // .catch((error) => {
+          //   setErrorMessage(error.message)
+          //   setLoading(false)
+          // })
+        }
+        // setLoading(false)
       })
       .catch((error) => {
-        alert(error.message)
+        setErrorMessage(error.message)
+        setLoading(false)
       })
   }
-  
+
+  const handleInputChange = (e, setInput) => {
+    setInput(e.target.value)
+    setErrorMessage('')
+  }  
 
   return (
     <>
-      <div className="sigin">
+      <div className="sigin relative">
         <h3 className="text-white text-2xl mb-4">Sign In</h3>
         <div className="mb-4">
           <input
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => handleInputChange(e, setEmail)}
             className="block w-full rounded-md border-0 focus:ring-0"
             type="email"
             placeholder="Email"
@@ -97,19 +169,31 @@ const SignIn = ({ setIsLoading, setLoginUser }) => {
         <div className="mb-4">
           <input
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => handleInputChange(e, setPassword)}
             className="block w-full rounded-md border-0 focus:ring-0"
             type="password"
             placeholder="Password"
           />
         </div>
+        {errorMessage && (
+          <div className="absolute -bottom-28 left-0 right-0">
+            <ErrorMessage errorMessage={errorMessage} />
+          </div>
+        )}
+        {errorVerification && (
+          <div className="absolute -bottom-28 left-0 right-0">
+            <ErrorMessage errorMessage="Please verify your email address!" />
+          </div>
+        )}
         <div className="mb-4">
           <button
             disabled={!email || !password}
             onClick={handleLogin}
-            className="focus:outline-none block w-full bg-pink-500 text-white px-8 py-3 rounded-lg border-0 focus:border-opacity-0 focus:ring-0 transition-opacity hover:opacity-90"
+            className={`focus:outline-none block w-full bg-pink-500 text-white px-8 py-3 rounded-lg border-0 focus:border-opacity-0 focus:ring-0 transition-opacity hover:opacity-90 relative ${
+              loading && 'h-12'
+            }`}
           >
-            Log in
+            {loading ? <LoaderIcon /> : 'Log in'}
           </button>
         </div>
         <div className="mb-4">
@@ -125,7 +209,7 @@ const SignIn = ({ setIsLoading, setLoginUser }) => {
               >
                 <path d="M896 786h725q12 67 12 128 0 217-91 387.5t-259.5 266.5-386.5 96q-157 0-299-60.5t-245-163.5-163.5-245-60.5-299 60.5-299 163.5-245 245-163.5 299-60.5q300 0 515 201l-209 201q-123-119-306-119-129 0-238.5 65t-173.5 176.5-64 243.5 64 243.5 173.5 176.5 238.5 65q87 0 160-24t120-60 82-82 51.5-87 22.5-78h-436v-264z" />
               </svg>
-            </div>{' '}
+            </div>
             Log in with Google
           </button>
         </div>

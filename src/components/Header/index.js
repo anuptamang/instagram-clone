@@ -10,6 +10,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import hideOnClickOutside from 'utils/ClickOutside';
 import { useLocationChange } from 'utils/utils';
 import './Header.scss';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 
 function Header({ location, handleLogout, currentUser, setLoggedIn }) {
   const [isActiveUser, setDropdownUser] = useState(false)
@@ -83,7 +84,11 @@ function Header({ location, handleLogout, currentUser, setLoggedIn }) {
             >
               <img
                 className="rounded-full cursor-pointer"
-                src={currentUser && currentUser.avatar}
+                src={
+                  currentUser.avatar
+                    ? currentUser.avatar
+                    : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNYQnIWk8PamawU9zU6wJxIxRtuzAxgy2Y4A&usqp=CAU'
+                }
                 width="22"
                 height="22"
                 alt=""

@@ -9,9 +9,10 @@ const SignIn = ({ setIsLoading, setLoginUser }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [loadingReset, setLoadingReset] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [errorVerification, setErrorVerification] = useState(false)
-  const [currUser, setCurrUser] = useState('')
+  const [resetVerification, setResetVerification] = useState(false)
 
   const loginWithGoogle = (e) => {
     e.preventDefault()
@@ -56,95 +57,55 @@ const SignIn = ({ setIsLoading, setLoginUser }) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then((result) => {       
-
-        // db.collection('users').doc(veririedId).set(
-        //   {
-        //     emailVerified: result.user.emailVerified,
-        //   },
-        //   { merge: true }
-        // )
-
-        console.log()
-
+      .then((result) => { 
         if (!result.user.emailVerified) {
           setErrorVerification(true)
           setLoading(false)
         } else if (result.user.emailVerified) {
-          // setIsLoading(true)
-          // db.collection('users').onSnapshot((snapshot) => {
-          //   // setCurrUser(snapshot.docs.map((doc) => doc.data()))
-          //   snapshot.docs.map((doc) => (doc.data()[0])).set(
-          //   {
-          //     emailVerified: result.user.emailVerified,
-          //   },
-          //   { merge: true }
-          // )
-          //   console.log(snapshot.docs.map((doc) => doc.data())[0])
-          // })
-          // console.log(
-          //   db
-          //     .collection('users')
-          //     .onSnapshot((snapshot) => snapshot.docs.map((doc) => doc.data()))
-          //     .find(({ email }) => email === result.user.email)
-          // )
 
-          // db.collection('users').doc(result.user.email).set(
-          //   {
-          //     emailVerified: result.user.emailVerified,
-          //   },
-          //   { merge: true }
-          // )
-          // let currUser = db
-          //   .collection('users')
-          //   .onSnapshot((snapshot) => snapshot.docs.map((doc) => doc.data()))
-          //   .find(({ email }) => email === result.user.email)
+          let payload = {
+            ...JSON.parse(localStorage.getItem('userSignup')),
+            emailVerified: result.user.emailVerified,
+          }
 
-          // console.log(currUser)
-          // currUser && localStorage.setItem('user', JSON.stringify(currUser))
-          //   setLoginUser(currUser)
+          if (
+            !db
+              .collection('users')
+              .onSnapshot((snapshot) =>
+                snapshot.docs.find(({id}) => id === result.user.uid)
+              )
+          ) {
+            db.collection('users').add(payload)
+            console.log('true...')
+          }
+          
+          setLoginUser(payload)
+          localStorage.setItem('user', JSON.stringify(payload))
 
           setLoading(false)
           setIsLoading(false)
-
-          // db.collection('users').onSnapshot((snapshot) => {
-          //   let users = snapshot.docs.map((doc) => doc.data())
-          //   let currUser = users && users.find(({ email }) => email === result.user.email)
-          //   let payload = currUser
-          //     ? {
-          //         ...currUser,
-          //         emailVerified: result.user.emailVerified,
-          //       }
-          //     : {
-          //         loginType: 'email',
-          //         name: result.user.displayName,
-          //         avatar: result.user.photoURL,
-          //         email: result.user.email,
-          //         emailVerified: result.user.emailVerified,
-          //         createdAt: firebase.firestore.Timestamp.now(),
-          //         username: result.user.displayName ? result.user.displayName
-          //           .toLowerCase()
-          //           .replaceAll(' ', ''): '',
-          //       }
-
-          //   console.log(payload)
-          //   // localStorage.setItem('user', JSON.stringify(payload))
-          //   // setLoginUser(payload)
-          //   // db.collection('users').add(payload)
-
-          //   setLoading(false)
-          //   setIsLoading(false)
-          // })
-          // .catch((error) => {
-          //   setErrorMessage(error.message)
-          //   setLoading(false)
-          // })
         }
         // setLoading(false)
       })
       .catch((error) => {
         setErrorMessage(error.message)
         setLoading(false)
+      })
+  }
+
+  const handleForgotPassword = (e) => {
+    e.preventDefault()
+    setLoadingReset(true)
+
+    firebase
+      .auth()
+      .sendPasswordResetEmail(email)
+      .then(() => {        
+        setResetVerification(true)
+        setLoadingReset(false)
+      })
+      .catch((error) => {
+        alert(error)
       })
   }
 
@@ -176,13 +137,33 @@ const SignIn = ({ setIsLoading, setLoginUser }) => {
           />
         </div>
         {errorMessage && (
-          <div className="absolute -bottom-28 left-0 right-0">
-            <ErrorMessage errorMessage={errorMessage} />
-          </div>
+          <>
+            <div className="mb-5">
+              <div className="text-white text-xs text-center mb-3">
+                Forgot your password?
+              </div>
+              <button
+                onClick={handleForgotPassword}
+                className={`focus:outline-none block w-full bg-green-500 text-white px-8 py-3 rounded-lg border-0 focus:border-opacity-0 focus:ring-0 transition-opacity hover:opacity-90 relative ${
+                  loadingReset && 'h-12'
+                }`}
+              >
+                {loadingReset ? <LoaderIcon /> : 'Reset Password'}
+              </button>
+            </div>
+            <div className="absolute -bottom-28 left-0 right-0">
+              <ErrorMessage errorMessage={errorMessage} />
+            </div>
+          </>
         )}
         {errorVerification && (
           <div className="absolute -bottom-28 left-0 right-0">
             <ErrorMessage errorMessage="Please verify your email address!" />
+          </div>
+        )}
+        {resetVerification && (
+          <div className="absolute -bottom-28 left-0 right-0">
+            <ErrorMessage errorMessage="Password reset email has been sent to your registerd email!" />
           </div>
         )}
         <div className="mb-4">

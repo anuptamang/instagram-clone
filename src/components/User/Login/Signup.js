@@ -44,12 +44,11 @@ const Signup = ({
           name: name,
           avatar: null,
           email: user.email,
-          emailVerified: user.emailVerified,
           createdAt: firebase.firestore.Timestamp.now(),
           username: username,
         }
-        // localStorage.setItem('user', JSON.stringify(payload))
-        db.collection('users').add(payload)
+        localStorage.setItem('userSignup', JSON.stringify(payload))
+        // db.collection('users').add(payload)
       })
       .catch((error) => {
         setLoading(false)

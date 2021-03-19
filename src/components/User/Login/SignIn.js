@@ -24,8 +24,6 @@ const SignIn = ({
   const [inputEmailVerification, setInputEmailVerification] = useState('')
   const [checker, setChecker] = useState('')
 
-  const dbContext = DB()
-
   useEffect(() => {
     db.collection('users').onSnapshot((snapshot) => {
       setChecker(snapshot.docs.map((doc) => doc.data().email))
@@ -71,7 +69,7 @@ const SignIn = ({
   const handleLogin = (e) => {
     e.preventDefault()
     setLoading(true)
-
+    console.log(checker)
     auth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
@@ -89,25 +87,23 @@ const SignIn = ({
           isVerified: false,
         }
 
-        if (!result.user.emailVerified) {
+        if (!user.emailVerified) {
           setErrorVerification(true)
           setEmailVerification(true)
           setLoading(false)
-        }
-        if (checker.length < 1) {
-          setLoginUser(payload)
-          
-          setLoginUser(payload)
+        } else if (!checker.includes(user.email) && user.emailVerified) {
           localStorage.setItem('user', JSON.stringify(payload))
-          setLoading(false)
-          setIsLoading(false)
           db.collection('users').add(payload)
+          setLoginUser(payload)
+          setLoading(false)
+          setIsLoading(false)
+          console.log('no users so save and login')
         } else {
-          console.log('already user so login')
           localStorage.setItem('user', JSON.stringify(payload))
           setLoginUser(payload)
           setLoading(false)
           setIsLoading(false)
+          console.log('has user, login')
         }
         setLoading(false)
       })

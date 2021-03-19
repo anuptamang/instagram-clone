@@ -34,13 +34,22 @@ function Login({ setLoginUser, setIsLoading, isLoading }) {
                     {signupEmail}
                   </a>
                 </span>
-                <div className="pt-3"><button onClick={()=>setIsEmailSent(false)} className="rounded-md bg-white px-7 py-2 text-pink-700 transition-opacity hover:opacity-90 focus:ring-0">Get back to Login</button></div>
+                <div className="pt-3">
+                  <button
+                    onClick={() => setIsEmailSent(false)}
+                    className="rounded-md bg-white px-7 py-2 text-pink-700 transition-opacity hover:opacity-90 focus:ring-0"
+                  >
+                    Get back to Login
+                  </button>
+                </div>
               </div>
             ) : (
               <div className="row md:grid md:grid-cols-2 md:space-x-5 text-left">
                 <SignIn
                   setIsLoading={setIsLoading}
                   setLoginUser={setLoginUser}
+                  setIsEmailSent={setIsEmailSent}
+                  setSignupEmail={setSignupEmail}
                 />
                 <Signup
                   setSignupEmail={setSignupEmail}

@@ -2,8 +2,7 @@ import ErrorMessage from 'components/_common/ErrorMessage'
 import LoaderIcon from 'components/_common/LoaderIcon'
 import db, { auth } from 'fb/firebase'
 import firebase from 'firebase'
-import React, { useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+import React, { useEffect, useState } from 'react'
 
 const Signup = ({
   setSignupEmail,
@@ -15,7 +14,25 @@ const Signup = ({
   const [username, setUsername] = useState('')
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+  const [user, setUser] = useState(null)
 
+  useEffect(() => {
+   const unsubscribe = auth.onAuthStateChanged((authUser)=> {
+      if(authUser) {
+        //user has logged in..
+        setUser(authUser)
+
+      } else {
+        // user has logged out
+        setUser(null)
+      }
+    })
+    return () => {
+      // perform cleanup action before refiring useEffect
+      unsubscribe()
+
+    }
+  }, [user, username])
 
   const handleSignUp = (e) => {
     e.preventDefault()
@@ -23,38 +40,22 @@ const Signup = ({
     
     auth
     .createUserWithEmailAndPassword(signupEmail, signUpPassword)
-    .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user
-        console.log(user)
+    .then((authUser) => {
+        auth.currentUser.sendEmailVerification()
+        .then(() => {
+          setIsEmailSent(true)
+          setLoading(false)
+        })
 
-        firebase
-          .auth()
-          .currentUser.sendEmailVerification()
-          .then(() => {
-            // Email verification sent!
-            // ...
-            if (!user.emailVerified) {
-              setIsEmailSent(true)
-              setLoading(false)
-            }
-          })
-        let payload = {
-          id: user.uid,
-          name: name,
-          avatar: null,
-          email: user.email,
-          createdAt: firebase.firestore.Timestamp.now(),
-          username: username,
-        }
-        localStorage.setItem('userSignup', JSON.stringify(payload))
-        // db.collection('users').add(payload)
+        return authUser.user.updateProfile({
+          displayName: name
+        })
+        
       })
       .catch((error) => {
         setLoading(false)
         setErrorMessage(error.message)
       })
-    
   }
 
   const handleInputChange = (e, setInput) => {

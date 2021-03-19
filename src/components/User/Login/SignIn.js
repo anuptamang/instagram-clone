@@ -1,18 +1,36 @@
 import db, { auth, provider } from 'fb/firebase'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import firebase from 'firebase'
 import LoaderIcon from 'components/_common/LoaderIcon'
 import ErrorMessage from 'components/_common/ErrorMessage'
 import { v4 as uuidv4 } from 'uuid'
+import { DB } from 'context/UserContext'
 
-const SignIn = ({ setIsLoading, setLoginUser }) => {
+const SignIn = ({
+  setIsLoading,
+  setLoginUser,
+  setIsEmailSent,
+  setSignupEmail,
+}) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [loadingReset, setLoadingReset] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [errorVerification, setErrorVerification] = useState(false)
-  const [resetVerification, setResetVerification] = useState(false)
+  const [resetPassword, setResetPassword] = useState(false)
+  const [emailVerifyLoading, setEmailVerifyLoading] = useState(false)
+  const [emailVerification, setEmailVerification] = useState(false)
+  const [inputEmailVerification, setInputEmailVerification] = useState('')
+  const [checker, setChecker] = useState('')
+
+  const dbContext = DB()
+
+  useEffect(() => {
+    db.collection('users').onSnapshot((snapshot) => {
+      setChecker(snapshot.docs.map((doc) => doc.data().email))
+    })
+  }, [])
 
   const loginWithGoogle = (e) => {
     e.preventDefault()
@@ -24,8 +42,8 @@ const SignIn = ({ setIsLoading, setLoginUser }) => {
         db.collection('users').onSnapshot((snapshot) => {
           let users = snapshot.docs.map((doc) => doc.data())
           let payload = {
-            id: uuidv4(),
-            loginType:'gmail',
+            id: result.user.uid,
+            loginType: 'gmail',
             name: result.user.displayName,
             avatar: result.user.photoURL,
             email: result.user.email,
@@ -48,50 +66,56 @@ const SignIn = ({ setIsLoading, setLoginUser }) => {
       .catch((error) => {
         alert(error.message)
       })
-  }
+  }  
 
   const handleLogin = (e) => {
     e.preventDefault()
     setLoading(true)
-    
-    firebase
-      .auth()
+
+    auth
       .signInWithEmailAndPassword(email, password)
-      .then((result) => { 
+      .then((result) => {
+        const user = result.user
+        let payload = {
+          name: user.displayName,
+          email: user.email,
+          id: user.uid,
+          avatar: user.photoURL,
+          phone: user.phoneNumber,
+          createdAt: user.metadata.creationTime,
+          lastSignInTime: user.metadata.lastSignInTime,
+          emailVerified: user.emailVerified,
+          homepage: null,
+          isVerified: false,
+        }
+
         if (!result.user.emailVerified) {
           setErrorVerification(true)
+          setEmailVerification(true)
           setLoading(false)
-        } else if (result.user.emailVerified) {
-
-          let payload = {
-            ...JSON.parse(localStorage.getItem('userSignup')),
-            emailVerified: result.user.emailVerified,
-          }
-
-          if (
-            !db
-              .collection('users')
-              .onSnapshot((snapshot) =>
-                snapshot.docs.find(({id}) => id === result.user.uid)
-              )
-          ) {
-            db.collection('users').add(payload)
-            console.log('true...')
-          }
+        }
+        if (checker.length < 1) {
+          setLoginUser(payload)
           
           setLoginUser(payload)
           localStorage.setItem('user', JSON.stringify(payload))
-
+          setLoading(false)
+          setIsLoading(false)
+          db.collection('users').add(payload)
+        } else {
+          console.log('already user so login')
+          localStorage.setItem('user', JSON.stringify(payload))
+          setLoginUser(payload)
           setLoading(false)
           setIsLoading(false)
         }
-        // setLoading(false)
+        setLoading(false)
       })
       .catch((error) => {
         setErrorMessage(error.message)
         setLoading(false)
       })
-  }
+  }  
 
   const handleForgotPassword = (e) => {
     e.preventDefault()
@@ -100,8 +124,8 @@ const SignIn = ({ setIsLoading, setLoginUser }) => {
     firebase
       .auth()
       .sendPasswordResetEmail(email)
-      .then(() => {        
-        setResetVerification(true)
+      .then(() => {
+        setResetPassword(true)
         setLoadingReset(false)
       })
       .catch((error) => {
@@ -112,7 +136,21 @@ const SignIn = ({ setIsLoading, setLoginUser }) => {
   const handleInputChange = (e, setInput) => {
     setInput(e.target.value)
     setErrorMessage('')
-  }  
+  }
+
+  const handleEmailVerification = () => {
+    auth.currentUser.reload()
+
+    if (!auth.currentUser.emailVerified) {
+      auth.currentUser.sendEmailVerification()
+      //resend verification email
+    } else {
+      //login
+    }
+
+    setIsEmailSent(true)
+    setSignupEmail(auth.currentUser.email)
+  }
 
   return (
     <>
@@ -161,7 +199,7 @@ const SignIn = ({ setIsLoading, setLoginUser }) => {
             <ErrorMessage errorMessage="Please verify your email address!" />
           </div>
         )}
-        {resetVerification && (
+        {resetPassword && (
           <div className="absolute -bottom-28 left-0 right-0">
             <ErrorMessage errorMessage="Password reset email has been sent to your registerd email!" />
           </div>
@@ -194,6 +232,25 @@ const SignIn = ({ setIsLoading, setLoginUser }) => {
             Log in with Google
           </button>
         </div>
+        {emailVerification && (
+          <div className="mb-4">
+            <div className="text-center text-xs text-white mb-2">
+              Did't get the verification email? Send it again.
+            </div>
+            <button
+              onClick={handleEmailVerification}
+              className={`focus:outline-none block w-full bg-green-600 text-white px-8 py-3 rounded-lg border-0 focus:border-opacity-0 focus:ring-0 transition-opacity hover:opacity-90 relative ${
+                emailVerifyLoading && 'h-12'
+              }`}
+            >
+              {emailVerifyLoading ? (
+                <LoaderIcon />
+              ) : (
+                'Resend Email Verification'
+              )}
+            </button>
+          </div>
+        )}
       </div>
     </>
   )

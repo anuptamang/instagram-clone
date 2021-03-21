@@ -1,48 +1,38 @@
 import SentimentSatisfiedOutlinedIcon from '@material-ui/icons/SentimentSatisfiedOutlined'
 import { DB } from 'context/UserContext'
 import Picker from 'emoji-picker-react'
+import db from 'fb/firebase'
 import React, { useRef, useState } from 'react'
 import ClickOutside from 'utils/ClickOutside'
+import firebase from 'firebase'
+import Emoji from 'components/_common/Emoji'
 
 const ArticleCommentForm = ({article}) => {
-  const db = DB()
-  const [input, setInput] = useState('')
-  const [isActivePopup, setActivePopup] = useState(false)
-  const emojiRef = useRef(null)
-  ClickOutside(emojiRef, setActivePopup)
+  const dbContext = DB()
+  const [input, setInput] = useState('')  
 
-  const onEmojiClick = (e, emojiObject) => {
-    setInput(input + ' ' + emojiObject.emoji + ' ')
-  }
-  
   const addComment = (e) => {
     e.preventDefault()
-
-    db.setComments([
-      ...db.comments,
-      {
+    let payload = {
         commentId: article.postId,
-        commentUserId: db.users.find(({ username }) => (username = db.user)).userId,
+        commentUserId: dbContext.user.userId,
         message: input,
-      },
-    ])
+        posted: firebase.firestore.Timestamp.now(),
+      }
+
+    dbContext.setComments([payload])
+    db.collection('comments').add(payload)
     setInput('') 
   }  
   
   return (
     <form>
       <div className="emoji-holder absolute left-3 top-1/2 transform -translate-y-1/2">
-        <div ref={emojiRef} className="emoji-picker relative cursor-pointer">
-          <SentimentSatisfiedOutlinedIcon
-            className="cursor-pointer"
-            onClick={() => setActivePopup(!isActivePopup)}
-          />
-          {isActivePopup && (
-            <div className="emoji-popup absolute bottom-full mb-3.5 -left-3 z-50">
-              <Picker onEmojiClick={onEmojiClick} />
-            </div>
-          )}
-        </div>
+        <Emoji
+          input={input}
+          setInput={setInput}
+          emojiPosition={`bottom-full mb-3.5 -left-3`}
+        />
       </div>
       <input
         value={input}

@@ -18,7 +18,7 @@ function Login({ setLoginUser, setIsLoading, isLoading }) {
           <form className="md:w-full lg:w-3/4 text-center">
             <div className="mb-12 inline-block">
               <img src={brandInstagram} alt="" />
-              <span class="text-white block text-right">CLONE</span>
+              <span class="text-white block text-right">HYBRID CLONE</span>
             </div>
             {isEmailSent ? (
               <div className="error py-3 px-5 rounded-lg bg-green-500 text-white text-md text-center">

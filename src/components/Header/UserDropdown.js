@@ -3,6 +3,7 @@ import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutline
 import CachedIcon from '@material-ui/icons/Cached'
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined'
 import { DB } from 'context/UserContext'
+import { auth } from 'fb/firebase'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
@@ -10,9 +11,14 @@ function UserDropdown({ handleLogout, currentUser }) {
   const db = DB()
 
   const logout = () => {
-    localStorage.removeItem('user')
+    // localStorage.removeItem('user')
     handleLogout('')
-    db.setUser('')
+    db.setUser(null)
+    auth.signOut().then(() => {
+      // Sign-out successful.
+    }).catch((error) => {
+      // An error happened.
+    })
   }
 
   return (

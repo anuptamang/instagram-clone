@@ -4,36 +4,37 @@ import React, { useState } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import Main from 'router'
 import './App.scss'
+import {storage} from './fb/firebase'
+import {DB} from 'context/UserContext'
+import UploadPP from 'components/User/Profile/UploadPP'
 
 function App() { 
-  const [loginUser, setLoginUser] = useState(JSON.parse(localStorage.getItem('user')))    
+  // const [loginUser, setLoginUser] = useState(JSON.parse(localStorage.getItem('user')))    
   const [isLoading, setIsLoading] = useState(false)
-
-
-  // useEffect(() => {
-  //   db.collection('users').onSnapshot((snapshot) => {
-  //     setLoginUser(snapshot.docs.map((doc) => doc.data()))
-  //   })
-  // }, [])
-  
+  const dbContext = DB()
   return (
     <Router>
       <div
         className={`App overflow-hidden relative min-h-screen bg-gradient-instagram
-         ${loginUser && 'bg-gray-100'}`}
+         ${dbContext.user && 'bg-gray-100'}`}
       >
-        {!loginUser ? (
+        {!dbContext.user ? (
           <>
             <Login
-              setLoginUser={setLoginUser}
+              setLoginUser={dbContext.setUser}
               setIsLoading={setIsLoading}
               isLoading={isLoading}
             />
           </>
         ) : (
           <>
-            <Header handleLogout={setLoginUser} currentUser={loginUser} />
+          {
+            dbContext.hasPP ? <UploadPP /> :
+            <>
+            <Header handleLogout={dbContext.setUser} currentUser={dbContext.user} />
             <Main />
+            </>
+          }
           </>
         )}
       </div>

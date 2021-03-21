@@ -6,7 +6,7 @@ import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded'
 import SendOutlinedIcon from '@material-ui/icons/SendOutlined'
 import animVideoCover from 'assets/images/anim-screen.png'
 import ArticleActivityPopup from 'components/User/Profile/ArticleActivityPopup'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AliceCarousel from 'react-alice-carousel'
 import ReactPlayer from 'react-player'
 import VisibilitySensor from 'react-visibility-sensor'
@@ -17,6 +17,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 import ArticleComment from './ArticleComment'
 import UserNameDropdown from './UserNameDropdown'
+import db from 'fb/firebase'
+import { DB } from 'context/UserContext'
 
 const ArticleContent = ({
   article,
@@ -36,12 +38,36 @@ const ArticleContent = ({
   const [likeCount, setLikeCount] = useState(article.post.postLikes)
   const [isClicked, setIsClicked] = useState(false)
   const [isSaved, setIsSaved] = useState(false)
+  const [checker, setChecker] = useState('')
+  const dbContext = DB()
+  
+  console.log(article)
+  console.log(dbContext)
+
+  useEffect(() => {
+    db.collection('postLikes').onSnapshot((snapshot) => {
+      setChecker(snapshot.docs.map((doc) => doc.data().postId))
+    })
+  }, [])
 
   const handleLike = () => {
     setIsLiked(!isLiked)
-    !isLiked
-      ? setLikeCount(article.post.postLikes + 1)
-      : setLikeCount(article.post.postLikes)
+
+    if(!isLiked) {
+      if (!checker.includes(article.postId && dbContext.user.userId)) {
+        setLikeCount(article.post.postLikes + 1)
+        db.collection('postLikes').add({
+          postId: article.postId,
+          userId: dbContext.user.userId,
+        })
+      }
+
+    } else {
+      if (checker.includes(article.postId)) {
+        setLikeCount(article.post.postLikes - 1)
+        // db.collection('postLikes').doc('id').delete()
+      }
+    }
   }  
 
   const handleClick = () => {
@@ -77,7 +103,7 @@ const ArticleContent = ({
               <div
                 className="img-holder bg-cover bg-center absolute top-0 left-0 w-full h-full z-20"
                 style={{
-                  backgroundImage: `url(${animVideoCover})`,
+                  backgroundImage: `url(${article.post.postVideoCover ? article.post.postVideoCover : animVideoCover})`,
                 }}
               ></div>
             )}
@@ -159,7 +185,9 @@ const ArticleContent = ({
             )}
           </div>
         </div>
-        <div className="likes-count text-sm pt-2">{likeCount} likes</div>
+        <div className="likes-count text-sm pt-2">
+          {likeCount > 0 && likeCount + ' likes'} 
+        </div>
         <div className="comment text-sm py-1">
           <UserNameDropdown user={article.author[0]} />
           {article.post.postCaption}
@@ -173,7 +201,7 @@ const ArticleContent = ({
         </div>
         <div className="posted-on text-xs text-gray-400 uppercase pt-2">
           {
-            ((hrs = Math.floor((now - article.post.posted) / 3600)),
+            ((hrs = Math.floor((now - article.post.posted.seconds) / 3600)),
             hrs > 24 ? `${Math.floor(hrs / 24)} days ago` : `${hrs} hours ago`)
           }
         </div>

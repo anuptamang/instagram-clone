@@ -13,12 +13,12 @@ const AuthorAvatar = ({article}) => {
       className="relative"
     >
       <NavLink
-        to={`/${article.author[0].username}`}
+        to={`/${article.author[0] && article.author[0].username}`}
         className="img-avatar rounded-full relative border border-gray-200 w-8 h-8 inline-block"
       >
         <img
           className="rounded-full block cursor-pointer"
-          src={article.author[0].avatar}
+          src={article.author[0] && article.author[0].avatar}
           width="32"
           height="32"
           alt=""

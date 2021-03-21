@@ -5,6 +5,7 @@ import LoaderIcon from 'components/_common/LoaderIcon'
 import ErrorMessage from 'components/_common/ErrorMessage'
 import { v4 as uuidv4 } from 'uuid'
 import { DB } from 'context/UserContext'
+import UploadPP from '../Profile/UploadPP'
 
 const SignIn = ({
   setIsLoading,
@@ -23,6 +24,7 @@ const SignIn = ({
   const [emailVerification, setEmailVerification] = useState(false)
   const [inputEmailVerification, setInputEmailVerification] = useState('')
   const [checker, setChecker] = useState('')
+  const dbContext = DB()
 
   useEffect(() => {
     db.collection('users').onSnapshot((snapshot) => {
@@ -40,22 +42,25 @@ const SignIn = ({
         db.collection('users').onSnapshot((snapshot) => {
           let users = snapshot.docs.map((doc) => doc.data())
           let payload = {
-            id: result.user.uid,
+            // userId: result.user.uid,
             loginType: 'gmail',
             name: result.user.displayName,
             avatar: result.user.photoURL,
             email: result.user.email,
             emailVerified: result.user.emailVerified,
             createdAt: firebase.firestore.Timestamp.now(),
-            username: result.user.displayName.toLowerCase().replaceAll(' ', ''),
+            username: result.user.email.substring(0, result.user.email.indexOf('@')),
+            followers: [],
+            following: [],
+            savedPost: [],
           }
 
           if (!users.find(({ email }) => email === result.user.email)) {
-            localStorage.setItem('user', JSON.stringify(payload))
+            // localStorage.setItem('user', JSON.stringify(payload))
             setLoginUser(payload)
             db.collection('users').add(payload)
           } else if (users.find(({ email }) => email === result.user.email)) {
-            localStorage.setItem('user', JSON.stringify(payload))
+            // localStorage.setItem('user', JSON.stringify(payload))
             setLoginUser(payload)
           }
           setIsLoading(false)
@@ -69,7 +74,7 @@ const SignIn = ({
   const handleLogin = (e) => {
     e.preventDefault()
     setLoading(true)
-    console.log(checker)
+    
     auth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
@@ -77,14 +82,18 @@ const SignIn = ({
         let payload = {
           name: user.displayName,
           email: user.email,
-          id: user.uid,
+          // userId: user.uid,
           avatar: user.photoURL,
           phone: user.phoneNumber,
-          createdAt: user.metadata.creationTime,
+          createdAt: firebase.firestore.Timestamp.now(),
           lastSignInTime: user.metadata.lastSignInTime,
           emailVerified: user.emailVerified,
           homepage: null,
           isVerified: false,
+          username: user.email.substring(0, user.email.indexOf('@')),
+          followers: [],
+          following: [],
+          savedPost: [],
         }
 
         if (!user.emailVerified) {
@@ -92,18 +101,26 @@ const SignIn = ({
           setEmailVerification(true)
           setLoading(false)
         } else if (!checker.includes(user.email) && user.emailVerified) {
-          localStorage.setItem('user', JSON.stringify(payload))
-          db.collection('users').add(payload)
-          setLoginUser(payload)
-          setLoading(false)
-          setIsLoading(false)
-          console.log('no users so save and login')
+          console.log(user)
+          // localStorage.setItem('user', JSON.stringify(payload))
+          if(user.photoURL) {
+            db.collection('users').add(payload)
+            setLoginUser(payload)
+            setLoading(false)
+            setIsLoading(false)
+          } else {
+            dbContext.setUploadPP(true)
+            db.collection('users').add(payload)
+            setLoginUser(payload)
+            setLoading(false)
+            setIsLoading(false)
+          }
         } else {
-          localStorage.setItem('user', JSON.stringify(payload))
+          console.log(user)
+          // localStorage.setItem('user', JSON.stringify(payload))
           setLoginUser(payload)
           setLoading(false)
           setIsLoading(false)
-          console.log('has user, login')
         }
         setLoading(false)
       })

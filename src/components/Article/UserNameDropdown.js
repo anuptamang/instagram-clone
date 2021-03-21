@@ -15,9 +15,9 @@ const UserNameDropdown = ({ user }) => {
       >
         <NavLink
           className="hover:underline font-bold"
-          to={`/${user.username}`}
+          to={`/${user && user.username}`}
         >
-          {user.username}
+          {user && user.username}
         </NavLink>
         {isActive && <ProfilePopup user={user} />}
       </div>

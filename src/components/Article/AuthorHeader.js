@@ -14,10 +14,10 @@ const AuthorHeader = ({
       className="relative"
     >
       <NavLink
-        className="hover:underline relative"
-        to={`/${article.author[0].username}`}
+        className="hover:underline relative lowercase"
+        to={`/${article.author[0] && article.author[0].username}`}
       >
-        {article.author[0].username}
+        {article.author[0] && article.author[0].username}
       </NavLink>
       {isActive && <ProfilePopup user={article.author[0]} />}
     </div>

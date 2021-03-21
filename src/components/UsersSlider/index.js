@@ -28,8 +28,7 @@ function UserSlider() {
   ))
   
   return (
-    
-      <>
+    <div className="users-slider slider variable-width py-3 border overflow-hidden bg-white mb-6 relative rounded-sm flex flex-nowrap">
         {db.loading ? (
           Array.from(Array(10).keys()).map((key) => (
             <div key={key} className="slide w-20 px-2 text-center">
@@ -45,7 +44,7 @@ function UserSlider() {
             items={slideItems}
           />
         )}
-      </>
+    </div>
   )
 }
 

@@ -13,10 +13,6 @@ function Login({ setLoginUser, setIsLoading, isLoading }) {
     <>
       {isLoading ? (
         <>
-        {
-          console.log('loading active...')
-        }
-
           <PageLoader />
         </>
       ) : (

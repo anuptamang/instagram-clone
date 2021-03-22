@@ -63,6 +63,7 @@ export const UserProvider = ({children}) => {
       }
     } else {
       setUser(null)
+      setLoading(false)
     }
   })
 

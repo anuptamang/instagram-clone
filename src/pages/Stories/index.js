@@ -165,7 +165,7 @@ const stories = [
 function StoriesPage() {
   
   return (
-    <div className="py-12 stories-slider items-center relative">
+    <div className="stories-slider items-center relative">
       <NavLink to="/" className="close absolute right-5 top-5 z-50">
         <svg
           aria-label="Close"

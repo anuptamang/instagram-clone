@@ -4,7 +4,7 @@ import Content from 'components/Content'
 
 function Home() {
   return (
-    <div className="container mx-auto px-5 py-24 lg:flex">
+    <div className="container mx-auto px-5 lg:flex">
       <div className="content mx-auto">
         <Content />
       </div>

@@ -59,15 +59,17 @@ const SignIn = ({
             // localStorage.setItem('user', JSON.stringify(payload))
             setLoginUser(payload)
             db.collection('users').add(payload)
+            setIsLoading(false)
           } else if (users.find(({ email }) => email === result.user.email)) {
             // localStorage.setItem('user', JSON.stringify(payload))
             setLoginUser(payload)
-          }
-          setIsLoading(false)
+            setIsLoading(false)
+          }          
         })
       })
       .catch((error) => {
         alert(error.message)
+        setIsLoading(false)
       })
   }  
 
@@ -78,6 +80,7 @@ const SignIn = ({
     auth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
+        setIsLoading(true)
         const user = result.user
         let payload = {
           name: user.displayName,
@@ -100,6 +103,7 @@ const SignIn = ({
           setErrorVerification(true)
           setEmailVerification(true)
           setLoading(false)
+          setIsLoading(false)
         } else if (!checker.includes(user.email) && user.emailVerified) {
           console.log(user)
           // localStorage.setItem('user', JSON.stringify(payload))
@@ -127,6 +131,7 @@ const SignIn = ({
       .catch((error) => {
         setErrorMessage(error.message)
         setLoading(false)
+        setIsLoading(false)
       })
   }  
 

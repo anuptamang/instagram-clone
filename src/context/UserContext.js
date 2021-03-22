@@ -7,9 +7,7 @@ export const UserContext = createContext()
 
 export const UserProvider = ({children}) => {
   // Initialize needed states
-  const [user, setUser] = useState(
-    localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : ''
-  )
+  const [user, setUser] = useState(null)
   // const [user, setUser] = useState('')
   // console.log(user)
   const [users, setUsers] = useState([])
@@ -39,25 +37,36 @@ export const UserProvider = ({children}) => {
   }, [])
 
   auth.onAuthStateChanged((authUser) => {
+    // setLoading(true)
+    console.log('loading...')
     if (authUser) {
-      let currUser = users.find(({email}) => email === authUser.email)
+      // setLoading(true)
+      console.log('data available...')
+      let currUser = users.find(({ email }) => email === authUser.email)
       setHasPP(currUser && currUser.avatar)
       // console.log(currUser)
-      if(currUser) {
+      if (currUser) {
         // localStorage.setItem('user', JSON.stringify(currUser))
         setUser(currUser)
+        console.log('loading false...')
+        setLoading(false)
       }
     } else {
       // user has logged out
       // localStorage.removeItem('user')
       setUser(null)
+      // setLoading(false)
+      console.log('loading false...')
     }
   })
+
+  
 
 
   const userProvider = {
     users,
     loading,
+    setLoading,
     posts,
     comments,
     postLikes,

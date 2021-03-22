@@ -4,6 +4,7 @@ import ImageIcon from '@material-ui/icons/Image';
 import TheatersRoundedIcon from '@material-ui/icons/TheatersRounded';
 import Emoji from 'components/_common/Emoji';
 import LoaderIcon from 'components/_common/LoaderIcon';
+import VideoBlock from 'components/_common/VideoBlock';
 import { DB } from 'context/UserContext';
 import db, { storage } from 'fb/firebase';
 import firebase from 'firebase';
@@ -32,20 +33,78 @@ const UserPostPanel = () => {
   const [progress, setProgress] = useState('')
   const [uploading, setUploading] = useState(false)
   const [previewUploading, setPreviewUploading] = useState(false)
-  const [previewImage, setPreviewImage] = useState(null)
-  const [previewVideo, setPreviewVideo] = useState(null)
+  const [previewImage, setPreviewImage] = useState('')
+  const [previewVideo, setPreviewVideo] = useState('')
+  const [previewVideoCover, setPreviewVideoCover] = useState(null)
 
   const user = DB().user
 
   const handleChange = (e) => {
-    const media = e.target.files[0]
+    const media = e.target.files
+    // console.log(media)
+    const mediaArr = Object.keys(media)
+      .map(function (data) {
+        return [data, media[data]]
+      })
+      .map((file) => {
+        return file[1]
+      })
+
+      console.log(mediaArr)
 
     if(media) {
-      setMediaObj(media)
+      setMediaObj(mediaArr)
+      // console.log(media)
 
-      const uploadTask = storage
-        .ref(`images/${media.name}`)
-        .put(media)
+      mediaArr.forEach((file) => {
+        const uploadTask = storage.ref(`images/${file.name}`).put(file)
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            // progress function..
+            const progress = Math.round(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            )
+            setPreviewUploading(true)
+            setProgress(progress)
+          },
+          (error) => {
+            // error function
+            console.log(error)
+          },
+          () => {
+            // complete function
+            if (
+              file.type ===
+              ('video/mp4' || 'video/webm' || 'video/mkv' || 'video/ogg')
+            ) {
+              storage
+                .ref('videos')
+                .child(file.name)
+                .getDownloadURL()
+                .then((videoUrl) => {
+                  setPreviewVideo(videoUrl)
+                  setPreviewUploading(false)
+                })
+            } else {
+              storage
+                .ref('images')
+                .child(file.name)
+                .getDownloadURL()
+                .then((imgUrl) => {
+                  setPreviewImage([imgUrl])
+                  setPreviewUploading(false)
+                })
+            }
+          }
+        )
+      })
+    }
+  }
+
+  const handleUpload = () => {
+    mediaObj.forEach((file) => {
+      const uploadTask = storage.ref(`images/${file.name}`).put(file)
       uploadTask.on(
         'state_changed',
         (snapshot) => {
@@ -53,114 +112,73 @@ const UserPostPanel = () => {
           const progress = Math.round(
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
           )
-          setPreviewUploading(true)
+          setUploading(true)
           setProgress(progress)
         },
         (error) => {
           // error function
           console.log(error)
         },
-        () => {
+        ()=> {
           // complete function
-          if(media.type === ('video/mp4' || 'video/webm' || 'video/mkv' || 'video/ogg')) {
+          if (
+            file.type ===
+            ('video/mp4' || 'video/webm' || 'video/mkv' || 'video/ogg')
+          ) {
             storage
               .ref('videos')
-              .child(media.name)
+              .child(file.name)
               .getDownloadURL()
               .then((videoUrl) => {
-                setPreviewVideo(videoUrl)
-                setPreviewUploading(false)
+                // post image inside db
+                
+                db.collection('posts').add({
+                  posted: firebase.firestore.Timestamp.now(),
+                  postCaption: caption,
+                  postImage: null,
+                  username: user.username ? user.username : '',
+                  // postId: uuidv4(),
+                  userId: user.userId,
+                  location: '',
+                  postVideo: videoUrl,
+                  postVideoCover: null,
+                  postLikes: 0,
+                })
+                setUploading(false)
+                setPreviewVideo(null)
+                // setProgress(0)
+                setCaption('')
+                setMediaObj(null)
               })
           } else {
-             storage
-               .ref('images')
-               .child(media.name)
-               .getDownloadURL()
-               .then((imgUrl) => {
-                 setPreviewImage(imgUrl)
-                 setPreviewUploading(false)
-               })
-          }
+            storage
+              .ref('images')
+              .child(file.name)
+              .getDownloadURL()
+              .then((imgUrl) => {
+                // post image inside db
+                db.collection('posts').add({
+                  posted: firebase.firestore.Timestamp.now(),
+                  postCaption: caption,
+                  postImage: [imgUrl],
+                  username: user.username ? user.username : '',
+                  // postId: uuidv4(),
+                  userId: user.userId,
+                  location: '',
+                  postVideo: null,
+                  postVideoCover: null,
+                  postLikes: 0,
+                })
+                setUploading(false)
+                setPreviewImage(null)
+                // setProgress(0)
+                setCaption('')
+                setMediaObj(null)
+              })
+          }        
         }
       )
-    }
-  }
-
-  const handleUpload = () => {
-    const uploadTask = storage.ref(`images/${mediaObj.name}`).put(mediaObj)
-    uploadTask.on(
-      'state_changed',
-      (snapshot) => {
-        // progress function..
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        )
-        setUploading(true)
-        setProgress(progress)
-      },
-      (error) => {
-        // error function
-        console.log(error)
-      },
-      ()=> {
-        // complete function
-        if (
-          mediaObj.type ===
-          ('video/mp4' || 'video/webm' || 'video/mkv' || 'video/ogg')
-        ) {
-          storage
-            .ref('videos')
-            .child(mediaObj.name)
-            .getDownloadURL()
-            .then((videoUrl) => {
-              // post image inside db
-              
-              db.collection('posts').add({
-                posted: firebase.firestore.Timestamp.now(),
-                postCaption: caption,
-                postImage: null,
-                username: user.username ? user.username : '',
-                // postId: uuidv4(),
-                userId: user.userId,
-                location: '',
-                postVideo: videoUrl,
-                postVideoCover: null,
-                postLikes: 0,
-              })
-              setUploading(false)
-              setPreviewVideo(null)
-              // setProgress(0)
-              setCaption('')
-              setMediaObj(null)
-            })
-        } else {
-          storage
-            .ref('images')
-            .child(mediaObj.name)
-            .getDownloadURL()
-            .then((imgUrl) => {
-              // post image inside db
-              db.collection('posts').add({
-                posted: firebase.firestore.Timestamp.now(),
-                postCaption: caption,
-                postImage: [imgUrl],
-                username: user.username ? user.username : '',
-                // postId: uuidv4(),
-                userId: user.userId,
-                location: '',
-                postVideo: null,
-                postVideoCover: null,
-                postLikes: 0,
-              })
-              setUploading(false)
-              setPreviewImage(null)
-              // setProgress(0)
-              setCaption('')
-              setMediaObj(null)
-            })
-        }        
-      }
-    )
+    })
   }  
 
   return (
@@ -187,18 +205,22 @@ const UserPostPanel = () => {
         <div className="mb-4 px-3">
           {previewUploading ? (
             <PreviewLoading />
-          ) : (
-            <>
-              {previewImage && <img src={previewImage} alt="" />}
+            ) : (
+              <>
+             
+              {
+                previewImage && previewImage.map(imageUrl => (
+                  <img src={imageUrl} alt="" />
+                ))
+              }
               {previewVideo && (
-                <ReactPlayer
-                  className="focus:ring-0 focus:border-opacity-0"
-                  width="100%"
-                  playing={false}
-                  url={previewVideo}
-                  loop
-                  controls
-                />
+                <div className="video-holder overflow-hidden relative h-72 w-full">
+                  <VideoBlock
+                    postVideoUrl={previewVideo}
+                    // postVideoCover={article.post.postVideoCover}
+                    // animVideoCover={animVideoCover}
+                  />
+                </div>
               )}
             </>
           )}
@@ -212,7 +234,7 @@ const UserPostPanel = () => {
               <ImageIcon className="fill-current text-pink-600" />
               <TheatersRoundedIcon className="fill-current text-pink-600" />
             </span>
-            <input className="hidden" type="file" />
+            <input className="hidden" multiple type="file" />
             Photo/Video
           </label>
         </div>

@@ -83,14 +83,22 @@ export const ProfilePopup = ({user}) => {
           posts.map((post, i) => {
             return (
               i < 3 && (
-                <NavLink
-                  key={i}
-                  to={`/p/${post.postId}`}
-                  className="block bg-cover h-32 hover:opacity-80 transition-opacity w-full"
-                  style={{
-                    backgroundImage: `url(${post.postImage[0]})`,
-                  }}
-                />
+                <>
+                  {
+                    post.postImage && 
+                    <NavLink
+                      key={i}
+                      to={`/p/${post.postId}`}
+                      className="block bg-cover h-32 hover:opacity-80 transition-opacity w-full"
+                      style={{
+                        backgroundImage: `url(${post.postImage && post.postImage[0]})`,
+                      }}
+                    />
+                  }
+                  {
+                    post.postVideo && 'Video'
+                  }
+                </>
               )
             )
           }))

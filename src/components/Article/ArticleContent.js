@@ -4,10 +4,10 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded'
 import SendOutlinedIcon from '@material-ui/icons/SendOutlined'
-import animVideoCover from 'assets/images/anim-screen.png'
 import ArticleActivityPopup from 'components/User/Profile/ArticleActivityPopup'
 import React, { useEffect, useState } from 'react'
 import AliceCarousel from 'react-alice-carousel'
+import animVideoCover from 'assets/images/anim-screen.png'
 import ReactPlayer from 'react-player'
 import VisibilitySensor from 'react-visibility-sensor'
 import ArticleCommentForm from './ArticleCommentForm'
@@ -19,12 +19,13 @@ import ArticleComment from './ArticleComment'
 import UserNameDropdown from './UserNameDropdown'
 import db from 'fb/firebase'
 import { DB } from 'context/UserContext'
+import VideoBlock from 'components/_common/VideoBlock'
 
 const ArticleContent = ({
   article,
+  isRodalVisible,
   isPlaying,
   isPlayingFirst,
-  isRodalVisible,
   isPageVisible,
   playVideo,
   pauseVideo,
@@ -99,35 +100,11 @@ const ArticleContent = ({
       <>
         {hasVideo ? (
           <div className="video-holder overflow-hidden relative h-96 w-full">
-            {!isPlayingFirst && (
-              <div
-                className="img-holder bg-cover bg-center absolute top-0 left-0 w-full h-full z-20"
-                style={{
-                  backgroundImage: `url(${article.post.postVideoCover ? article.post.postVideoCover : animVideoCover})`,
-                }}
-              ></div>
-            )}
-            {!isPlaying && (
-              <>
-                <button
-                  onClick={playVideo}
-                  className="absolute top-0 left-0 h-full w-full flex items-center justify-center z-20 text-white focus:outline-none opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
-                >
-                  <PlayArrowRoundedIcon />
-                </button>
-              </>
-            )}
-            <VisibilitySensor>
-              {({ isVisible }) => (
-                <div className="video" onClick={pauseVideo}>
-                  <ReactPlayer
-                    playing={isPlaying && isPageVisible && isVisible && true}
-                    url={article.post.postVideo}
-                    loop
-                  />
-                </div>
-              )}
-            </VisibilitySensor>
+            <VideoBlock
+              postVideoUrl={article.post.postVideo}
+              postVideoCover={article.post.postVideoCover}
+              animVideoCover={animVideoCover}
+            />
           </div>
         ) : (
           <AliceCarousel
@@ -186,7 +163,7 @@ const ArticleContent = ({
           </div>
         </div>
         <div className="likes-count text-sm pt-2">
-          {likeCount > 0 && likeCount + ' likes'} 
+          {likeCount > 0 && likeCount + ' likes'}
         </div>
         <div className="comment text-sm py-1">
           <UserNameDropdown user={article.author[0]} />

@@ -6,7 +6,7 @@ import ScrollToTop from 'react-router-scroll-top';
 const Main = () => {
   
   return (
-    <main className="main-content">
+    <main className="main-content pt-28 pb-20">
       <ScrollToTop>
         <Switch>
           {pageRoutes.map((props) => {

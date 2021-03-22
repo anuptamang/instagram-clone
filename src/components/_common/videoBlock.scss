@@ -1,0 +1,17 @@
+.profile-popup {
+  .video {
+    width: 100% !important;
+    height: 100% !important;
+
+    >div {
+      width: 100% !important;
+      height: 100% !important;
+    }
+  }
+}
+
+.video {
+  >div {
+    width: 100% !important;
+  }
+}

@@ -24,11 +24,6 @@ import VideoBlock from 'components/_common/VideoBlock'
 const ArticleContent = ({
   article,
   isRodalVisible,
-  isPlaying,
-  isPlayingFirst,
-  isPageVisible,
-  playVideo,
-  pauseVideo,
   setIsRodalVisible,
   hasVideo
 }) => {
@@ -41,9 +36,6 @@ const ArticleContent = ({
   const [isSaved, setIsSaved] = useState(false)
   const [checker, setChecker] = useState('')
   const dbContext = DB()
-  
-  console.log(article)
-  console.log(dbContext)
 
   useEffect(() => {
     db.collection('postLikes').onSnapshot((snapshot) => {

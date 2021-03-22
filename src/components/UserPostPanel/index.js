@@ -50,11 +50,8 @@ const UserPostPanel = () => {
         return file[1]
       })
 
-      console.log(mediaArr)
-
     if(media) {
       setMediaObj(mediaArr)
-      // console.log(media)
 
       mediaArr.forEach((file) => {
         const uploadTask = storage.ref(`images/${file.name}`).put(file)

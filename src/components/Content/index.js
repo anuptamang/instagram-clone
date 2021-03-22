@@ -5,30 +5,13 @@ import { DB } from 'context/UserContext'
 import React from 'react'
 
 function Content() {
-  const dbContext = DB()
-  
-  const articles = dbContext.posts.map(({ postId, ...post }) => ({
-    post: post,
-    postId: postId,
-    author: dbContext.users.filter(({ userId }) => userId === post.userId),
-    comments: dbContext.comments
-      .filter(({ commentId }) => commentId === postId)
-      .map(({ commentUserId, message, posted }) => ({
-        message,
-        posted,
-        user: dbContext.users.filter(({ userId }) => userId === commentUserId),
-      })),
-    postLikes: dbContext.postLikes.map(({ likesId, ...likes }) => ({
-      likesId: likesId,
-      author: dbContext.users.filter(({ userId }) => userId === likes.userId),
-    })),
-  }))
+  const dbContext = DB()  
   
   return (
     <>
       <UserSlider />
       <UserPostPanel />
-      {articles && articles
+      {dbContext.articles && dbContext.articles
         .map((article) => article)
         .sort((a, b) => (a.posted > b.posted ? -1 : 1))
         .map((article, i) => {

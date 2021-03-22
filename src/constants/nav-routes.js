@@ -7,6 +7,7 @@ import SendOutlinedIcon from '@material-ui/icons/SendOutlined'
 import Explore from 'pages/Explore'
 import Home from 'pages/Home'
 import Messages from 'pages/Messages'
+import Post from 'pages/Post'
 import Profile from 'pages/Profile'
 import Saved from 'pages/Saved'
 import Settings from 'pages/Settings'
@@ -83,5 +84,11 @@ export const pageRoutes = [
     path: '/stories/:userId',
     exact: true,
     component: Stories,
-  }
+  },
+  {
+    key: 7,
+    path: '/p/:postId',
+    exact: true,
+    component: Post,
+  },
 ]

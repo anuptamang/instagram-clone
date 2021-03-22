@@ -1,7 +1,6 @@
 import 'assets/styles/slider.css'
 import ArticleSkeleton from 'components/skeletons/ArticleSkeleton'
 import React, { useState } from 'react'
-import { usePageVisibility } from 'react-page-visibility'
 import './article.scss'
 import ArticleContent from './ArticleContent'
 

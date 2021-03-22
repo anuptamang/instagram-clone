@@ -1,12 +1,7 @@
 import React from 'react'
 import InstagramIcon from '@material-ui/icons/Instagram'
 import { IconButton } from '@material-ui/core'
-const styles = {
-  largeIcon: {
-    width: 80,
-    height: 80,
-  },
-}
+
 const PageLoader = () => {
   return (
     <div className="App overflow-hidden relative min-h-screen bg-gray-100 z-50">

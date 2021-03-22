@@ -14,7 +14,7 @@ export const UserProvider = ({children}) => {
   const [posts, setPosts] = useState([])
   const [comments, setComments] = useState([])
   const [postLikes, setPostLikes] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [uploadPP, setUploadPP] = useState(false)
   const [hasPP, setHasPP] = useState(null)
 
@@ -36,38 +36,42 @@ export const UserProvider = ({children}) => {
     })
   }, [])
 
+  const articles = posts && posts.map(({ postId, ...post }) => ({
+    post: post,
+    postId: postId,
+    author: users && users.filter(({ userId }) => userId === post.userId),
+    comments: comments && comments
+      .filter(({ commentId }) => commentId === postId)
+      .map(({ commentUserId, message, posted }) => ({
+        message,
+        posted,
+        user: users && users.filter(({ userId }) => userId === commentUserId),
+      })),
+    postLikes: postLikes && postLikes.map(({ likesId, ...likes }) => ({
+      likesId: likesId,
+      author: users && users.filter(({ userId }) => userId === likes.userId),
+    })),
+  }))
+
   auth.onAuthStateChanged((authUser) => {
-    // setLoading(true)
-    console.log('loading...')
     if (authUser) {
-      // setLoading(true)
-      console.log('data available...')
       let currUser = users.find(({ email }) => email === authUser.email)
       setHasPP(currUser && currUser.avatar)
-      // console.log(currUser)
       if (currUser) {
-        // localStorage.setItem('user', JSON.stringify(currUser))
         setUser(currUser)
-        console.log('loading false...')
         setLoading(false)
       }
     } else {
-      // user has logged out
-      // localStorage.removeItem('user')
       setUser(null)
-      // setLoading(false)
-      console.log('loading false...')
     }
   })
-
-  
-
 
   const userProvider = {
     users,
     loading,
     setLoading,
     posts,
+    articles,
     comments,
     postLikes,
     setUser,

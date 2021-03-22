@@ -1,14 +1,12 @@
 import Header from 'components/Header'
 import Login from 'components/User/Login'
 import { DB } from 'context/UserContext'
-import React, { useState } from 'react'
+import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import Main from 'router'
 import './App.scss'
 
 function App() { 
-  // const [loginUser, setLoginUser] = useState(JSON.parse(localStorage.getItem('user')))    
-  // const [isLoading, setIsLoading] = useState(false)
   const dbContext = DB()
   return (
     <Router>
@@ -25,13 +23,6 @@ function App() {
             />
           </>
         ) : (
-          <>
-            {
-              // !dbContext.hasPP ? <UploadPP /> :
-              // <>
-              // <Header handleLogout={dbContext.setUser} currentUser={dbContext.user} />
-              // <Main />
-              // </>
               <>
                 <Header
                   handleLogout={dbContext.setUser}
@@ -39,8 +30,6 @@ function App() {
                 />
                 <Main />
               </>
-            }
-          </>
         )}
       </div>
     </Router>

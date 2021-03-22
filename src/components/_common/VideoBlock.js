@@ -3,6 +3,7 @@ import ReactPlayer from 'react-player'
 import VisibilitySensor from 'react-visibility-sensor'
 import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded'
 import { usePageVisibility } from 'react-page-visibility'
+import './videoBlock.scss'
 
 const VideoBlock = (props) => {
   const [isPlaying, setPlaying] = useState(false)

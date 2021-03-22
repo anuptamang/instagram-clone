@@ -10,4 +10,14 @@
 - Tailwind CSS
 - Material Icons
 - Axios
-- React Material Skeleton Loader
+
+## Features available so far:
+- User Signup / Sign in
+- User Email Verification
+- User Password Reset
+- Post Create (image/video posting)
+- Post Comment
+- Emoji Comment
+- Post Like
+- Single Post
+- Basic Page Routes

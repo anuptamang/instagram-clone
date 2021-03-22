@@ -1,7 +1,11 @@
-import { NavLink } from 'react-router-dom'
-import React from 'react'
-import './profilePopup.scss'
+import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded'
+import animVideoCover from 'assets/images/anim-screen.png'
 import { DB } from 'context/UserContext'
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import './profilePopup.scss'
+
+
 
 export const ProfilePopup = ({user}) => {
   let posts
@@ -84,20 +88,40 @@ export const ProfilePopup = ({user}) => {
             return (
               i < 3 && (
                 <>
-                  {
-                    post.postImage && 
+                  {post.postImage && (
                     <NavLink
                       key={i}
                       to={`/p/${post.postId}`}
-                      className="block bg-cover h-32 hover:opacity-80 transition-opacity w-full"
+                      className="block bg-cover h-28 hover:opacity-80 transition-opacity w-full"
                       style={{
-                        backgroundImage: `url(${post.postImage && post.postImage[0]})`,
+                        backgroundImage: `url(${
+                          post.postImage && post.postImage[0]
+                        })`,
                       }}
                     />
-                  }
-                  {
-                    post.postVideo && 'Video'
-                  }
+                  )}
+                  {post.postVideo && (
+                    <>
+                      <NavLink
+                        key={i}
+                        to={`/p/${post.postId}`}
+                        className="block relative bg-cover h-28 hover:opacity-80 transition-opacity w-full"
+                        style={{
+                          backgroundImage: `url(${
+                            post.postVideoCover
+                              ? post.postVideoCover
+                              : animVideoCover
+                          })`,
+                        }}
+                      >
+                        <span
+                          className="absolute top-0 left-0 h-full w-full flex items-center justify-center z-20 text-white focus:outline-none opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
+                        >
+                          <PlayArrowRoundedIcon />
+                        </span>
+                      </NavLink>
+                    </>
+                  )}
                 </>
               )
             )

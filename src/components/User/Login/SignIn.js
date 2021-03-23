@@ -1,11 +1,9 @@
-import db, { auth, provider } from 'fb/firebase'
-import React, { useEffect, useState } from 'react'
-import firebase from 'firebase'
-import LoaderIcon from 'components/_common/LoaderIcon'
 import ErrorMessage from 'components/_common/ErrorMessage'
-import { v4 as uuidv4 } from 'uuid'
+import LoaderIcon from 'components/_common/LoaderIcon'
 import { DB } from 'context/UserContext'
-import UploadPP from '../Profile/UploadPP'
+import db, { auth, provider } from 'fb/firebase'
+import firebase from 'firebase'
+import React, { useEffect, useState } from 'react'
 
 const SignIn = ({
   setIsLoading,
@@ -22,7 +20,6 @@ const SignIn = ({
   const [resetPassword, setResetPassword] = useState(false)
   const [emailVerifyLoading, setEmailVerifyLoading] = useState(false)
   const [emailVerification, setEmailVerification] = useState(false)
-  const [inputEmailVerification, setInputEmailVerification] = useState('')
   const [checker, setChecker] = useState('')
   const dbContext = DB()
 

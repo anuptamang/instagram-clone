@@ -1,7 +1,6 @@
 import ErrorMessage from 'components/_common/ErrorMessage'
 import LoaderIcon from 'components/_common/LoaderIcon'
-import db, { auth } from 'fb/firebase'
-import firebase from 'firebase'
+import { auth } from 'fb/firebase'
 import React, { useEffect, useState } from 'react'
 
 const Signup = ({

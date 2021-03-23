@@ -1,25 +1,22 @@
+import BookmarkIcon from '@material-ui/icons/Bookmark'
 import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined'
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
+import FavoriteIcon from '@material-ui/icons/Favorite'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
-import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded'
 import SendOutlinedIcon from '@material-ui/icons/SendOutlined'
+import animVideoCover from 'assets/images/anim-screen.png'
 import ArticleActivityPopup from 'components/User/Profile/ArticleActivityPopup'
+import VideoBlock from 'components/_common/VideoBlock'
+import { DB } from 'context/UserContext'
+import db from 'fb/firebase'
 import React, { useEffect, useState } from 'react'
 import AliceCarousel from 'react-alice-carousel'
-import animVideoCover from 'assets/images/anim-screen.png'
-import ReactPlayer from 'react-player'
-import VisibilitySensor from 'react-visibility-sensor'
+import ArticleComment from './ArticleComment'
 import ArticleCommentForm from './ArticleCommentForm'
 import AuthorAvatar from './AuthorAvatar'
 import AuthorHeader from './AuthorHeader'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import BookmarkIcon from '@material-ui/icons/Bookmark'
-import ArticleComment from './ArticleComment'
 import UserNameDropdown from './UserNameDropdown'
-import db from 'fb/firebase'
-import { DB } from 'context/UserContext'
-import VideoBlock from 'components/_common/VideoBlock'
 
 const ArticleContent = ({
   article,
@@ -34,28 +31,53 @@ const ArticleContent = ({
   const [likeCount, setLikeCount] = useState(article.post.postLikes)
   const [isClicked, setIsClicked] = useState(false)
   const [isSaved, setIsSaved] = useState(false)
-  const [checker, setChecker] = useState('')
+  const [checker, setChecker] = useState(null)
   const dbContext = DB()
 
   useEffect(() => {
     db.collection('postLikes').onSnapshot((snapshot) => {
-      setChecker(snapshot.docs.map((doc) => doc.data().postId))
+      setChecker(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          postId: doc.data().postId,
+          userId: doc.data().userId,
+        }))
+      )
     })
-  }, [])
+  }, [setChecker])
+
+  if(checker) {
+    const indicator = checker.find(
+      ({ userId }) => userId === dbContext.user.userId
+    )
+
+    console.log(indicator)
+
+    // if (indicator) {
+    //   setIsLiked(true)
+    //   console.log(isLiked)
+    // } else {
+    //   setIsLiked(false)
+    //   console.log(isLiked)
+    // }
+  }
+
+  // console.log(checker && checker[0].postId)
 
   const handleLike = () => {
     setIsLiked(!isLiked)
 
     if(!isLiked) {
-      if (!checker.includes(article.postId && dbContext.user.userId)) {
+      if (!checker.includes(article.postId)) {
         setLikeCount(article.post.postLikes + 1)
+
         db.collection('postLikes').add({
           postId: article.postId,
           userId: dbContext.user.userId,
         })
       }
 
-    } else {
+    } else if(isLiked) {
       if (checker.includes(article.postId)) {
         setLikeCount(article.post.postLikes - 1)
         // db.collection('postLikes').doc('id').delete()

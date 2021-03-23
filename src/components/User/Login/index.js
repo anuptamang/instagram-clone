@@ -1,7 +1,6 @@
 import brandInstagram from 'assets/images/brand-instagram.png'
 import PageLoader from 'components/_common/PageLoader'
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
 import SignIn from './SignIn'
 import Signup from './Signup'
 

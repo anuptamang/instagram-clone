@@ -1,4 +1,3 @@
-import axios from 'axios'
 import db, { auth } from 'fb/firebase'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 

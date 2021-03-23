@@ -20,3 +20,14 @@
     transform: scale(1.3);
   }
 }
+
+.header {
+  &__title {
+    margin: 5px;
+    background: orange;
+  }
+  
+  &--active {
+    background: yellow;
+  }
+}

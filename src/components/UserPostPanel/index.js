@@ -9,7 +9,6 @@ import { DB } from 'context/UserContext';
 import db, { storage } from 'fb/firebase';
 import firebase from 'firebase';
 import React, { useState } from 'react';
-import ReactPlayer from 'react-player';
 import PreviewLoading from './PreviewLoading';
 
 function LinearProgressWithLabel(props) {

@@ -10,7 +10,6 @@ import { NavLink, withRouter } from 'react-router-dom';
 import hideOnClickOutside from 'utils/ClickOutside';
 import { useLocationChange } from 'utils/utils';
 import './Header.scss';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 
 function Header({ location, handleLogout, currentUser, setLoggedIn }) {
   const [isActiveUser, setDropdownUser] = useState(false)

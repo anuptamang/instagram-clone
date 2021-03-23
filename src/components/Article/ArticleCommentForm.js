@@ -1,11 +1,8 @@
-import SentimentSatisfiedOutlinedIcon from '@material-ui/icons/SentimentSatisfiedOutlined'
-import { DB } from 'context/UserContext'
-import Picker from 'emoji-picker-react'
-import db from 'fb/firebase'
-import React, { useRef, useState } from 'react'
-import ClickOutside from 'utils/ClickOutside'
-import firebase from 'firebase'
 import Emoji from 'components/_common/Emoji'
+import { DB } from 'context/UserContext'
+import db from 'fb/firebase'
+import firebase from 'firebase'
+import React, { useState } from 'react'
 
 const ArticleCommentForm = ({article}) => {
   const dbContext = DB()
